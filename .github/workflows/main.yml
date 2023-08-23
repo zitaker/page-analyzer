@@ -1,0 +1,38 @@
+name: main
+
+on:
+  push:
+    branches:
+      - '**'
+    tags:
+      - '**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: poetry install
+        run: |
+          make install
+
+#      - name: install poetry
+#        run: |
+#          pip install poetry
+#
+#      - name: poetry build
+#        run: |
+#          make build
+#
+#      - name: force-reinstall
+#        run: |
+#          make reinstall
+#
+#      - name: flake8-install
+#        run: |
+#          make flake8-install
+#
+#      - name: flake8-run
+#        run: |
+#          make flake8-run
