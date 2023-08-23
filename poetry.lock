@@ -980,13 +980,13 @@ files = [
 
 [[package]]
 name = "python-dotenv"
-version = "0.9.1"
-description = "Add .env support to your django/flask apps in development and deployments"
+version = "0.21.0"
+description = "Read key-value pairs from a .env file and set them as environment variables"
 optional = false
-python-versions = "*"
+python-versions = ">=3.7"
 files = [
-    {file = "python-dotenv-0.9.1.tar.gz", hash = "sha256:122290a38ece9fe4f162dc7c95cae3357b983505830a154d3c98ef7f6c6cea77"},
-    {file = "python_dotenv-0.9.1-py2.py3-none-any.whl", hash = "sha256:4a205787bc829233de2a823aa328e44fd9996fedb954989a21f1fc67c13d7a77"},
+    {file = "python-dotenv-0.21.0.tar.gz", hash = "sha256:b77d08274639e3d34145dfa6c7008e66df0f04b7be7a75fd0d5292c191d79045"},
+    {file = "python_dotenv-0.21.0-py3-none-any.whl", hash = "sha256:1684eb44636dd462b66c3ee016599815514527ad99965de77f43e0944634a7e5"},
 ]
 
 [package.extras]
@@ -1373,4 +1373,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.1"
-content-hash = "c88f9c3a448c8df4d0fc730c4034d7fc7750797f76af9aa874b544cb42e1546d"
+content-hash = "98fb6495e57f8cff291c0480d1db4d6c43cbf90f4562bfa4eea0e7f63e428cad"
