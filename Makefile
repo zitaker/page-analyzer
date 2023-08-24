@@ -8,3 +8,6 @@ dev:
 
 start:
 	poetry run gunicorn -w 5 -b 0.0.0.0:$(PORT) page_analyzer:app
+
+loading:
+	poetry run flask --app app --debug run --port 8000
