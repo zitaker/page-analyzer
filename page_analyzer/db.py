@@ -44,3 +44,14 @@ conn = create_connection(
     "database", "postgres", "postgres", "127.0.0.1", "5432"
 )
 
+cursor = conn.cursor()
+
+# def save_data(name):
+#     # Создание SQL-запроса для вставки данных в таблицу users
+#     sql = "INSERT INTO urls (name) VALUES (%s);"
+#     values = (name)
+#     cursor.execute(sql, values)
+
+    # Сохранение изменений в базе данных
+    # conn.commit()
+
