@@ -15,6 +15,8 @@ start:
 loading:
 	poetry run flask --app page_analyzer/app --debug run --port 8000
 
+psql:
+	poetry run psql -a -d postgresql://postgres:postgres@localhost:5432/database -f database.sql
 
 
 

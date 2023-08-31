@@ -44,13 +44,3 @@ conn = create_connection(
     "database", "postgres", "postgres", "127.0.0.1", "5432"
 )
 
-
-# # получение объекта курсора
-# cursor = conn.cursor()
-#
-# # Получаем список всех пользователей
-# cursor.execute('SELECT * FROM users')
-# all_users = cursor.fetchall()
-# cursor.close() # закрываем курсор
-# conn.close() # закрываем соединение
-
