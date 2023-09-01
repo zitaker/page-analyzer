@@ -15,56 +15,15 @@ except:
     # в случае сбоя подключения будет выведено сообщение в STDOUT
     print('Can`t establish connection to database')
 
-cursor = conn.cursor()
-
-# добавляем строку в таблицу people
-cursor.execute("INSERT INTO urls (name) VALUES ('aida')")
-# выполняем транзакцию
-conn.commit()
-print("Данные добавлены")
-
-cursor.close()
-conn.close()
-        # import psycopg2
-        # from psycopg2 import OperationalError
-        #
-        # def create_connection(db_name, db_user, db_password, db_host, db_port):
-        #     connection = None
-        #     try:
-        #         connection = psycopg2.connect(
-        #             database=db_name,
-        #             user=db_user,
-        #             password=db_password,
-        #             host=db_host,
-        #             port=db_port,
-        #         )
-        #         print("Connection to PostgreSQL DB successful")
-        #         print('работает')
-        #
-        #
-        #     except OperationalError as e:
-        #         print(f"The error '{e}' occurred")
-        #         print('не работает')
-        #     return connection
-        #
-        # conn = create_connection(
-        #     "database", "postgres", "postgres", "127.0.0.1", "5432"
-        # )
+def insert_into_urls():
+    cursor = conn.cursor()
+    # добавляем строку в таблицу people
+    cursor.execute("INSERT INTO urls (name) VALUES ('qwerty5')")
+    # выполняем транзакцию
+    conn.commit()
+    print("Данные добавлены")
+    cursor.close()
+    conn.close()
 
 
-# from psycopg2.extras import NamedTupleCursor
-# with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-#     curs.execute('SELECT * FROM urls;')
-#     # curs.execute('SELECT id, name, created_at  FROM urls WHERE name=%s', ('Bron',))
-#     alfred = curs.fetchone()
-#     print(alfred)
-
-# cursor = connection.cursor()
-#         postgres_insert_query = """ INSERT INTO urls (name)
-#                                            VALUES (%s)"""
-#         record_to_insert = ('qwerty')
-#         cursor.execute(postgres_insert_query, record_to_insert)
-#
-#         connection.commit()
-#         count = cursor.rowcount
-#         print(count, "Запись успешно добавлена в таблицу urls")
+# print(insert_into_urls())
