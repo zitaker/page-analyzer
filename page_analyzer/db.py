@@ -10,21 +10,10 @@ def insert_into_urls():
         conn = psycopg2.connect(dbname='database', user='postgres', password='postgres',
                                 host='127.0.0.1', port='5432')
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO urls (name) VALUES ('qwerty5')")
+        cursor.execute("INSERT INTO urls (name) VALUES ('qwerty1')")
         conn.commit()
         cursor.close()
         conn.close()
 
     except:
         print('ошибка SQL. Can`t establish connection to database')
-
-# def insert_into_urls():
-#     cursor = conn.cursor()
-#     cursor.execute("INSERT INTO urls (name) VALUES ('qwerty5')")
-#     conn.commit()
-#     print("Данные добавлены")
-#     cursor.close()
-#     conn.close()
-
-
-# print(insert_into_urls())
