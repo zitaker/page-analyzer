@@ -17,3 +17,6 @@ def insert_into_urls():
 
     except:
         print('ошибка SQL. Can`t establish connection to database')
+
+
+
