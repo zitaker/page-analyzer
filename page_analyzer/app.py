@@ -20,18 +20,18 @@ def index():
 @app.route('/urls', methods=['POST', 'GET'])
 def page_urls():
     if request.method == 'POST':
-
-        conn = psycopg2.connect(dbname='database', user='postgres', password='postgres',
-                                host='127.0.0.1', port='5432')
-        cursor = conn.cursor()
-        # cursor.execute("INSERT INTO urls (name) VALUES ('qwerty33')")
-        cursor.execute("INSERT INTO urls (name) VALUES ({{}})")
-        conn.commit()
-        cursor.close()
-        conn.close()
-
-        result = request.form.get('url')
-        return render_template('urls.html', result=result)
+        try:
+            conn = psycopg2.connect(dbname='database', user='postgres', password='postgres',
+                                    host='127.0.0.1', port='5432')
+            cursor = conn.cursor()
+            result = request.form.get('url')
+            cursor.execute("INSERT INTO urls (name) VALUES (%s)", [result])
+            conn.commit()
+            cursor.close()
+            conn.close()
+            return render_template('urls.html', result=result)
+        except:
+            print('ошибка SQL. Can`t establish connection to database')
     return render_template('urls.html')
 
 if __name__ == '__main__':
