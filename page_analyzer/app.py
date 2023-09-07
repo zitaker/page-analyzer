@@ -29,7 +29,7 @@ def page_urls():
             conn.commit()
             cursor.close()
             conn.close()
-            return render_template('urls.html', result=result)
+            return render_template('show.html', result=result)
         except:
             print('ошибка SQL. Can`t establish connection to database')
     return render_template('urls.html')
