@@ -3,7 +3,7 @@
 {% block title %}Сайты{% endblock %}
 {% block h1 %}Сайты{% endblock %}
 {% block main %}
-<h1>{{ result1 }}</h1>
+
 <div class="table-responsive">
   <table class="table table-bordered table-hover text-nowrap" data-test="urls">
     <thead>
@@ -13,6 +13,14 @@
       <th>Последняя проверка</th>
       <th>Код ответа</th>
     </tr>
+
+    <tr>
+      <th>{{ id_atr }}</th>
+      <th>{{ name_atr }}</th>
+      <th>{{ created_at_atr }}</th>
+      <th></th>
+    </tr>
+
     </thead>
     <tbody>
 

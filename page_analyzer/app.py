@@ -5,6 +5,7 @@ from flask import Flask
 from flask import render_template
 # from .db import sql_connection
 from flask import request
+from psycopg2.extras import NamedTupleCursor
 
 
 DATABASE_URL = os.getenv('DATABASE_URL')
@@ -41,18 +42,42 @@ def urls():
         try:
             conn = psycopg2.connect(dbname='database', user='postgres', password='postgres',
                                     host='127.0.0.1', port='5432')
-            cursor = conn.cursor()
-            cursor.execute("SELECT * FROM urls;")
-            all_users = cursor.fetchall()
 
-            cursor.close()
+            # with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
+            #     curs.execute("SELECT (id) FROM urls;")
+            #     id_urls = curs.fetchall()
+            # for i in range(len(id_urls)):
+            #     id_atr = id_urls[i]
+
+            with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
+                curs.execute('SELECT * FROM urls ORDER BY id DESC;')
+                rows = curs.fetchall()
+
+                id_atr = []
+                for row in rows:
+                    id_atr.append((row[0]))
+
+                name_atr = []
+                for row in rows:
+                    name_atr.append((row[1]))
+
+                created_at_atr = []
+                for row in rows:
+                    created_at_atr.append((row[2]))
+
             conn.close()
-            return render_template('urls.html', result1=all_users)
+            return render_template(
+                'urls.html',
+                id_atr=id_atr[0],
+                name_atr=name_atr,
+                created_at_atr=created_at_atr)
+            # return render_template('urls.html', context={'all_users': all_users})
 
 
         except:
             print('ошибка SQL. Can`t establish connection to database')
     return render_template('urls.html')
+
 
 if __name__ == '__main__':
     app.run()
