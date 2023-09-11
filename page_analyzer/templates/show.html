@@ -8,18 +8,20 @@
 <div class="table-responsive">
     <table class="table table-bordered table-hover text-nowrap" data-test="url">
       <tbody>
+      {% for elem in row %}
         <tr>
           <td>ID</td>
-          <td>1</td>
+          <td>{{ elem.id }}</td>
         </tr>
         <tr>
           <td>Имя</td>
-          <td>https://github.com</td>
+          <td>{{ elem.name }}</td>
         </tr>
         <tr>
           <td>Дата создания</td>
-          <td>2023-09-07</td>
+          <td>{{ elem.created_at }}</td>
         </tr>
+      {% endfor %}
       </tbody>
     </table>
   </div>

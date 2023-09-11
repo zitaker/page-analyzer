@@ -25,13 +25,15 @@ def page_urls():
         try:
             conn = psycopg2.connect(dbname='database', user='postgres', password='postgres',
                                     host='127.0.0.1', port='5432')
-            cursor = conn.cursor()
             result = request.form.get('url')
-            cursor.execute("INSERT INTO urls (name) VALUES (%s)", [result])
-            conn.commit()
-            cursor.close()
-            conn.close()
-            return render_template('show.html', result=result)
+            with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
+                curs.execute("INSERT INTO urls (name) VALUES (%s)", [result])
+                conn.commit()
+
+                curs.execute('SELECT * FROM urls ORDER BY id DESC;')
+                row = curs.fetchmany(size=1)
+                conn.close()
+            return render_template('show.html', result=result, row=row)
         except:
             print('ошибка SQL. Can`t establish connection to database')
 
