@@ -14,12 +14,14 @@
       <th>Код ответа</th>
     </tr>
 
+    {% for elem in rows %}
     <tr>
-      <th>{{ id_atr }}</th>
-      <th>{{ name_atr }}</th>
-      <th>{{ created_at_atr }}</th>
+      <th>{{ elem.id }}</th>
+      <th>{{ elem.name }}</th>
+      <th>{{ elem.created_at }}</th>
       <th></th>
     </tr>
+    {% endfor %}
 
     </thead>
     <tbody>
