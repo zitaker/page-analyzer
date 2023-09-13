@@ -35,7 +35,18 @@ def page_urls():
         except:
             print('ошибка SQL. Can`t establish connection to database')
 
-# нужно в ручную прописывать id в url и по id должны браться данные из таблицы
+
+@app.route('/urls/<int:id>')
+def get_urls(id):
+        conn = psycopg2.connect(dbname='database', user='postgres', password='postgres',
+                                host='127.0.0.1', port='5432')
+        with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
+            curs.execute("SELECT * FROM urls WHERE id = (%s)", [id])
+            row = curs.fetchmany(size=1)
+            id == row
+
+            conn.close()
+        return f"{id} {row}"
 
 # @app.route('/urls/<int:id>')
 # def get_urls(id):
