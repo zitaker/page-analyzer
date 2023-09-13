@@ -7,7 +7,7 @@ from flask import render_template
 from flask import request
 from psycopg2.extras import NamedTupleCursor
 
-from flask import url_for
+from flask import url_for, session, redirect
 import json
 
 DATABASE_URL = os.getenv('DATABASE_URL')
@@ -21,7 +21,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/urls/', methods=['POST'])
+@app.route('/urls/', methods=['POST', 'GET'])
 def page_urls():
     if request.method == 'POST':
         try:
@@ -37,7 +37,7 @@ def page_urls():
                 conn.close()
             # return render_template('show.html', row=row)
             # return render_template('show.html')
-            return render_template('/urls/<int:username>')
+            # return render_template('/urls/<int:username>')
         except:
             print('ошибка SQL. Can`t establish connection to database')
 
@@ -76,6 +76,10 @@ def urls():
             print('ошибка SQL. Can`t establish connection to database')
     return render_template('urls.html')
 
+
+@app.errorhandler(404)
+def page_not_fount(error):
+    return render_template('page_404.html', title='Страница не найдена')
 
 if __name__ == '__main__':
     app.run()
