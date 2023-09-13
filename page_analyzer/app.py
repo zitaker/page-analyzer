@@ -31,31 +31,27 @@ def page_urls():
             with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
                 curs.execute("INSERT INTO urls (name) VALUES (%s)", [get_request_form])
                 conn.commit()
-
-                # curs.execute('SELECT * FROM urls ORDER BY id DESC;')
-                # row = curs.fetchmany(size=1)
                 conn.close()
-            # return render_template('show.html', row=row)
-            # return render_template('show.html')
-            # return render_template('/urls/<int:username>')
         except:
             print('ошибка SQL. Can`t establish connection to database')
 
-@app.route('/urls/<int:username>')
-def get_urls(username):
-    try:
-        conn = psycopg2.connect(dbname='database', user='postgres', password='postgres',
-                                host='127.0.0.1', port='5432')
-        with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-            curs.execute('SELECT * FROM urls ORDER BY id DESC;')
-            row = curs.fetchmany(size=1)
-            conn.close()
-    except:
-        print('ошибка SQL. Can`t establish connection to database')
-    # return json.dumps(username)
+# нужно в ручную прописывать id в url и по id должны браться данные из таблицы
 
-    return render_template('show.html', row=row), json.dumps(username)
-
+# @app.route('/urls/<int:id>')
+# def get_urls(id):
+#     try:
+#         conn = psycopg2.connect(dbname='database', user='postgres', password='postgres',
+#                                 host='127.0.0.1', port='5432')
+#         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
+#             curs.execute('SELECT * FROM urls ORDER BY id DESC;')
+#             row = curs.fetchmany(size=1)
+#
+#             conn.close()
+#
+#     except:
+#         print('ошибка SQL. Can`t establish connection to database')
+#
+#     return render_template('show.html', row=row), json.dumps(id)
 
 
 @app.route('/urls', methods=['GET'])
