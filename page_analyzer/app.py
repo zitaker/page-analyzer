@@ -75,5 +75,6 @@ def urls():
 def page_not_fount(error):
     return render_template('page_404.html', title='Страница не найдена')
 
+
 if __name__ == '__main__':
     app.run()
