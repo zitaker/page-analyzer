@@ -34,35 +34,22 @@ def page_urls():
                 conn.close()
         except:
             print('ошибка SQL. Can`t establish connection to database')
+    return redirect('/urls/<int:id>', code=302, Response=None)
 
 
 @app.route('/urls/<int:id>')
 def get_urls(id):
+    try:
         conn = psycopg2.connect(dbname='database', user='postgres', password='postgres',
                                 host='127.0.0.1', port='5432')
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
             curs.execute("SELECT * FROM urls WHERE id = (%s)", [id])
             row = curs.fetchmany(size=1)
             id == row
-
             conn.close()
-        return f"{id} {row}"
-
-# @app.route('/urls/<int:id>')
-# def get_urls(id):
-#     try:
-#         conn = psycopg2.connect(dbname='database', user='postgres', password='postgres',
-#                                 host='127.0.0.1', port='5432')
-#         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-#             curs.execute('SELECT * FROM urls ORDER BY id DESC;')
-#             row = curs.fetchmany(size=1)
-#
-#             conn.close()
-#
-#     except:
-#         print('ошибка SQL. Can`t establish connection to database')
-#
-#     return render_template('show.html', row=row), json.dumps(id)
+    except:
+        print('ошибка SQL. Can`t establish connection to database')
+    return render_template('show.html', row=row)
 
 
 @app.route('/urls', methods=['GET'])
