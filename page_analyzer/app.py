@@ -38,19 +38,18 @@ def page_urls():
     conn = psycopg2.connect(dbname='database', user='postgres', password='postgres',
                             host='127.0.0.1', port='5432')
     with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-        curs.execute('SELECT id FROM urls;', [id])
-        rows = curs.fetchall()
-        id == rows
-
-        result = []
-        for elem in rows:
-            result.append(elem)
+        curs.execute('SELECT id FROM urls ORDER BY id DESC;', [id])
+        row = curs.fetchmany(size=1)
         conn.close()
+
+        for elem in row:
+            return redirect(elem.id)
+
 
     # if request.method == 'POST' and 'url' in session:
     #     return redirect(url_for('urls', name=session['url']))
     # return redirect(id, code=302, Response=None)
-    return redirect(result[0])
+    # return redirect(result[0])
 
 
 # @app.route('/urls/', methods=['POST', 'GET'])
