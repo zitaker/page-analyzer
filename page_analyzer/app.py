@@ -30,6 +30,7 @@ def page_urls():
             with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
                 curs.execute("INSERT INTO urls (name) VALUES (%s)", [get_request_form])
                 if 'http://' in get_request_form or 'https://' in get_request_form:
+                    # if get_request_form.count('/') <= 3:
                     conn.commit()
                 else:
                     page_not_fount()
