@@ -6,9 +6,8 @@ from flask import render_template
 # from .db import sql_connection
 from flask import request
 from psycopg2.extras import NamedTupleCursor
+from flask import redirect
 
-from flask import url_for, session, redirect
-import json
 
 DATABASE_URL = os.getenv('DATABASE_URL')
 conn = psycopg2.connect(DATABASE_URL)
@@ -21,7 +20,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/urls/', methods=['POST', 'GET'])
+@app.route('/urls/', methods=['POST'])
 def page_urls():
     if request.method == 'POST':
         try:
@@ -30,32 +29,25 @@ def page_urls():
             get_request_form = request.form.get('url')
             with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
                 curs.execute("INSERT INTO urls (name) VALUES (%s)", [get_request_form])
-                conn.commit()
+                if 'http://' in get_request_form or 'https://' in get_request_form:
+                    conn.commit()
+                else:
+                    page_not_fount()
+
+                curs.execute('SELECT id FROM urls ORDER BY id DESC;', [id])
+                row = curs.fetchmany(size=1)
                 conn.close()
+
+                for elem in row:
+                    return redirect(elem.id)
         except:
             print('ошибка SQL. Can`t establish connection to database')
 
-    conn = psycopg2.connect(dbname='database', user='postgres', password='postgres',
-                            host='127.0.0.1', port='5432')
-    with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-        curs.execute('SELECT id FROM urls ORDER BY id DESC;', [id])
-        row = curs.fetchmany(size=1)
-        conn.close()
 
-        for elem in row:
-            return redirect(elem.id)
+# 1.1 убирать все что после слеша
+# 2) рендерить форму с выводом ошибок или успешном добавлении
+# 3) прооверять на уникальные входные данные
 
-
-    # if request.method == 'POST' and 'url' in session:
-    #     return redirect(url_for('urls', name=session['url']))
-    # return redirect(id, code=302, Response=None)
-    # return redirect(result[0])
-
-
-# @app.route('/urls/', methods=['POST', 'GET'])
-# def qwerty():
-#     text = 'qwerty123'
-#     return render_template(text)
 
 @app.route('/urls/<int:id>')
 def get_urls(id):
