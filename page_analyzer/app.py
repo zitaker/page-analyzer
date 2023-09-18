@@ -27,10 +27,15 @@ def page_urls():
             conn = psycopg2.connect(dbname='database', user='postgres', password='postgres',
                                     host='127.0.0.1', port='5432')
             get_request_form = request.form.get('url')
+
+            symbol = '/'
+            indexes = [i for i, slash in enumerate(get_request_form) if slash == symbol]
+            elem = indexes[2]
+            # if indexes[2] not in indexes:
+            #     elem = indexes[1]
             with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-                curs.execute("INSERT INTO urls (name) VALUES (%s)", [get_request_form])
+                curs.execute("INSERT INTO urls (name) VALUES (%s)", [get_request_form[:elem]])
                 if 'http://' in get_request_form or 'https://' in get_request_form:
-                    # if get_request_form.count('/') <= 3:
                     conn.commit()
                 else:
                     page_not_fount()
@@ -39,13 +44,13 @@ def page_urls():
                 row = curs.fetchmany(size=1)
                 conn.close()
 
-                for elem in row:
-                    return redirect(elem.id)
+            for elem in row:
+                return redirect(elem.id)
         except:
             print('ошибка SQL. Can`t establish connection to database')
 
 
-# 1.1 убирать все что после слеша
+# 1.2 добавлять в таблицу даже если только 2 слеша
 # 2) рендерить форму с выводом ошибок или успешном добавлении
 # 3) прооверять на уникальные входные данные
 
