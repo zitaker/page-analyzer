@@ -22,9 +22,12 @@
       </header>
 </div>
 
+{% for cat, msg in get_flashed_messages(True) %}
+<div class="flash {{ cat }}">{{ msg }}</div>
+{% endfor %}
+
 <main class="flex-grow-1">
     <div class="container-lg mt-3">
-        <h1>{% block h1 %}{% endblock %}</h1>
     {% block main %}
     {% endblock %}
     </div>

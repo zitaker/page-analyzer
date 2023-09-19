@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 
-{% block h1 %}Сайт:{% endblock %}
 {% block main %}
+
+{% for elem in row %}
+
+<h1>Сайт: {{ elem.name }}</h1>
 
 <div class="table-responsive">
     <table class="table table-bordered table-hover text-nowrap" data-test="url">
       <tbody>
-      {% for elem in row %}
+
         <tr>
           <td>ID</td>
           <td>{{ elem.id }}</td>
@@ -19,11 +22,10 @@
           <td>Дата создания</td>
           <td>{{ elem.created_at }}</td>
         </tr>
-      {% endfor %}
       </tbody>
     </table>
   </div>
-
+{% endfor %}
 <h2 class="mt-5 mb-3">Проверки</h2>
 
 <form method="post" action="/urls/1/checks">

@@ -8,11 +8,14 @@ from flask import request
 from psycopg2.extras import NamedTupleCursor
 from flask import redirect
 
+from flask import flash
+
 
 DATABASE_URL = os.getenv('DATABASE_URL')
 conn = psycopg2.connect(DATABASE_URL)
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'dergegkp20sdJUOIe3309f267jrthKfe42hrs'
 
 
 @app.route('/')
@@ -39,9 +42,12 @@ def page_urls():
             with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
                 curs.execute("INSERT INTO urls (name) VALUES (%s)", [get_request_form[:elem]])
                 if 'http://' in get_request_form or 'https://' in get_request_form:
+                    flash('Страница успешно добавлена', category='success')
                     conn.commit()
+                # elif get_request_form in conn:
+                #     flash('Страница уже существует')
                 else:
-                    page_not_fount()
+                    flash('Некорректный URL', category='error')
 
                 curs.execute('SELECT id FROM urls ORDER BY id DESC;', [id])
                 row = curs.fetchmany(size=1)
@@ -52,8 +58,7 @@ def page_urls():
         except:
             print('ошибка SQL. Can`t establish connection to database')
 
-# 2) рендерить форму с выводом ошибок или успешном добавлении
-# 3) прооверять на уникальные входные данные
+# 3.1 рендерить форму с выводом - такая страница уже существует
 
 
 @app.route('/urls/<int:id>')
