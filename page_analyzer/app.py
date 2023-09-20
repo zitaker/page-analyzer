@@ -40,14 +40,17 @@ def page_urls():
                 elem = indexes[2]
 
             with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-                curs.execute("INSERT INTO urls (name) VALUES (%s)", [get_request_form[:elem]])
-                if 'http://' in get_request_form or 'https://' in get_request_form:
-                    flash('Страница успешно добавлена', category='success')
-                    conn.commit()
-                # elif get_request_form in conn:
-                #     flash('Страница уже существует')
-                else:
-                    flash('Некорректный URL', category='error')
+                try:
+                    curs.execute("INSERT INTO urls (name) VALUES (%s)", [get_request_form[:elem]])
+                    # if 'http://' in get_request_form or 'https://' in get_request_form:
+                    #     flash('Страница успешно добавлена', category='success')
+                    #     conn.commit()
+                    # else:
+                    #     flash('Некорректный URL', category='error')
+                    raise flash('Страница уже существует')
+                except TypeError:
+                    pass
+
 
                 curs.execute('SELECT id FROM urls ORDER BY id DESC;', [id])
                 row = curs.fetchmany(size=1)
