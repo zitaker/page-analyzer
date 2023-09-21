@@ -47,8 +47,11 @@ def page_urls():
                         flash('Некорректный URL', category='error')
                         return redirect('/')
                 except:
+                    # SELECT * FROM urls WHERE name = 'Arya1';
+                    # curs.execute("SELECT * FROM urls WHERE name = 'http://127.0.0.1:8000';", [get_request_form[:elem]])
+                    # already_exists_line = curs.fetchmany(size=1)
                     flash('Страница уже существует', category='exists')
-                    return redirect('/qwerty')
+                    return redirect('/qw')
 
 
                 curs.execute('SELECT id FROM urls ORDER BY id DESC;', [id])
@@ -61,6 +64,7 @@ def page_urls():
             print('ошибка SQL. Can`t establish connection to database')
 
 # 3.2 выводить страницу с повтором
+# 3.3 сделать запрос на вытаскивания id из одинаковых данны в таблице
 
 
 @app.route('/urls/<int:id>')
