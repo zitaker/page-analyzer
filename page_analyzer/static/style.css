@@ -16,11 +16,17 @@
     --bs-alert-border-color: #f5c2c7;
 }
 
+.flash.exists {
+    --bs-alert-color: #055160;
+    --bs-alert-bg: #cff4fc;
+    --bs-alert-border-color: #b6effb;
+}
+
 .flash {
     --bs-alert-bg: transparent;
     --bs-alert-padding-x: 1rem;
     --bs-alert-padding-y: 1rem;
-    --bs-alert-margin-bottom: 1rem;
+    --bs-alert-margin-bottom: 2rem;
     --bs-alert-color: inherit;
     --bs-alert-border-color: transparent;
     --bs-alert-border: 1px solid var(--bs-alert-border-color);
