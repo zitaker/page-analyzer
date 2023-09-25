@@ -7,8 +7,10 @@ conn = psycopg2.connect(DATABASE_URL)
 
 
 def address_base_data():
-    conn = psycopg2.connect(dbname='database', user='postgres', password='postgres',
-                            host='127.0.0.1', port='5432')
+    # conn = psycopg2.connect(dbname='database', user='postgres', password='postgres',
+    #                         host='127.0.0.1', port='5432')
+    conn = psycopg2.connect(dbname='database_oqb2', user='database_oqb2_user', password='SXmHfAPG4qsuiNuj1SVvXoIdT9kyVwfA',
+                            host='dpg-ck6pjt7sasqs73b31t20-a', port='5432')
     return conn
 
 # class address_base_data(object):
