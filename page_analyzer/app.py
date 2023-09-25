@@ -3,11 +3,11 @@ import os
 
 from flask import Flask
 from flask import render_template
-# from .db import sql_connection
 from flask import request
 from psycopg2.extras import NamedTupleCursor
 from flask import redirect
 from flask import flash
+from .db import address_base_data
 
 DATABASE_URL = os.getenv('DATABASE_URL')
 conn = psycopg2.connect(DATABASE_URL)
@@ -23,76 +23,65 @@ def index():
 
 @app.route('/urls/', methods=['POST'])
 def page_urls():
+    conn = address_base_data()
     if request.method == 'POST':
-        try:
-            conn = psycopg2.connect(dbname='database', user='postgres', password='postgres',
-                                    host='127.0.0.1', port='5432')
-            get_request_form = request.form.get('url')
+        get_request_form = request.form.get('url')
 
-            symbol = '/'
-            indexes = [i for i, slash in enumerate(get_request_form) if slash == symbol]
+        symbol = '/'
+        indexes = [i for i, slash in enumerate(get_request_form) if slash == symbol]
 
-            if len(indexes) < 3:
-                elem = len(get_request_form)
-            if len(indexes) > 2:
-                elem = indexes[2]
+        if len(indexes) < 3:
+            elem = len(get_request_form)
+        if len(indexes) > 2:
+            elem = indexes[2]
 
-            with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-                curs.execute("SELECT id FROM urls WHERE name = (%s);", [get_request_form[:elem]])
-                already_exists_line = curs.fetchmany(size=1)
-                for item in already_exists_line:
-                    flash('Страница уже существует', category='exists')
-                    return redirect(item.id)
+        with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
+            curs.execute("SELECT id FROM urls WHERE name = (%s);", [get_request_form[:elem]])
+            already_exists_line = curs.fetchmany(size=1)
+            for item in already_exists_line:
+                flash('Страница уже существует', category='exists')
+                return redirect(item.id)
 
-                curs.execute("INSERT INTO urls (name) VALUES (%s)", [get_request_form[:elem]])
-                if 'http://' in get_request_form or 'https://' in get_request_form:
-                    flash('Страница успешно добавлена', category='success')
-                    conn.commit()
-                else:
-                    flash('Некорректный URL', category='error')
-                    return redirect('/')
+            curs.execute("INSERT INTO urls (name) VALUES (%s)", [get_request_form[:elem]])
+            if 'http://' in get_request_form or 'https://' in get_request_form:
+                flash('Страница успешно добавлена', category='success')
+                conn.commit()
+            else:
+                flash('Некорректный URL', category='error')
+                return redirect('/')
 
-                curs.execute('SELECT id FROM urls ORDER BY id DESC;', [id])
-                row = curs.fetchmany(size=1)
-                conn.close()
+            curs.execute('SELECT id FROM urls ORDER BY id DESC;', [id])
+            row = curs.fetchmany(size=1)
+            conn.close()
 
-            for elem in row:
-                return redirect(elem.id)
-        except:
-            print('ошибка SQL. Can`t establish connection to database')
+        for elem in row:
+            return redirect(elem.id)
 
 
-@app.route('/urls/<int:id>')
+@app.route('/urls/<int:id>', methods=['GET'])
 def get_urls(id):
-    try:
-        conn = psycopg2.connect(dbname='database', user='postgres', password='postgres',
-                                host='127.0.0.1', port='5432')
+    conn = address_base_data()
+    if request.method == 'GET':
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
             curs.execute("SELECT * FROM urls WHERE id = (%s)", [id])
             row = curs.fetchmany(size=1)
             id == row
             conn.close()
-    except:
-        print('ошибка SQL. Can`t establish connection to database')
+
     return render_template('show.html', row=row)
 
 
 @app.route('/urls', methods=['GET'])
 def urls():
+    conn = address_base_data()
     if request.method == 'GET':
-        try:
-            conn = psycopg2.connect(dbname='database', user='postgres', password='postgres',
-                                    host='127.0.0.1', port='5432')
+        with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
+            curs.execute('SELECT * FROM urls ORDER BY id DESC;')
+            rows = curs.fetchall()
+            conn.close()
+            return render_template(
+            'urls.html', rows=rows)
 
-            with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-                curs.execute('SELECT * FROM urls ORDER BY id DESC;')
-                rows = curs.fetchall()
-                conn.close()
-                return render_template(
-                'urls.html', rows=rows)
-
-        except:
-            print('ошибка SQL. Can`t establish connection to database')
     return render_template('urls.html')
 
 
