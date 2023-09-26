@@ -1,7 +1,7 @@
 import psycopg2
 import os
 
-from dataclasses import dataclass
+# from dataclasses import dataclass
 
 
 DATABASE_URL = os.getenv('DATABASE_URL')

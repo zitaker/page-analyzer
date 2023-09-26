@@ -15,6 +15,10 @@ conn = psycopg2.connect(DATABASE_URL)
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'dergegkp20sdJUOIe3309f267jrthKfe42hrs'
 
+with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
+    curs.execute("CREATE TABLE urls (id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY, name varchar(255) unique NOT NULL, created_at DATE NOT NULL DEFAULT CURRENT_TIMESTAMP);")
+    conn.commit()
+    conn.close()
 
 @app.route('/')
 def index():
