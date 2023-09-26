@@ -15,10 +15,10 @@ conn = psycopg2.connect(DATABASE_URL)
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'dergegkp20sdJUOIe3309f267jrthKfe42hrs'
 
-# with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-#     curs.execute("CREATE TABLE urls (id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY, name varchar(255) unique NOT NULL, created_at DATE NOT NULL DEFAULT CURRENT_TIMESTAMP);")
-#     conn.commit()
-#     conn.close()
+with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
+    curs.execute("CREATE TABLE urls (id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY, name varchar(255) unique NOT NULL, created_at DATE NOT NULL DEFAULT CURRENT_TIMESTAMP);")
+    conn.commit()
+    conn.close()
 
 @app.route('/')
 def index():
@@ -27,7 +27,9 @@ def index():
 
 @app.route('/urls/', methods=['POST'])
 def page_urls():
-    conn = address_base_data()
+    # conn = address_base_data()
+    DATABASE_URL = os.getenv('DATABASE_URL')
+    conn = psycopg2.connect(DATABASE_URL)
     if request.method == 'POST':
         get_request_form = request.form.get('url')
 
@@ -64,7 +66,9 @@ def page_urls():
 
 @app.route('/urls/<int:id>', methods=['GET'])
 def get_urls(id):
-    conn = address_base_data()
+    # conn = address_base_data()
+    DATABASE_URL = os.getenv('DATABASE_URL')
+    conn = psycopg2.connect(DATABASE_URL)
     if request.method == 'GET':
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
             curs.execute("SELECT * FROM urls WHERE id = (%s)", [id])
@@ -77,7 +81,9 @@ def get_urls(id):
 
 @app.route('/urls', methods=['GET'])
 def urls():
-    conn = address_base_data()
+    # conn = address_base_data()
+    DATABASE_URL = os.getenv('DATABASE_URL')
+    conn = psycopg2.connect(DATABASE_URL)
     if request.method == 'GET':
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
             curs.execute('SELECT * FROM urls ORDER BY id DESC;')
