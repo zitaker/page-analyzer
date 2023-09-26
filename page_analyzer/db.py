@@ -8,10 +8,10 @@ DATABASE_URL = os.getenv('DATABASE_URL')
 conn = psycopg2.connect(DATABASE_URL)
 
 
-def address_base_data():
-    conn = psycopg2.connect(dbname='database', user='postgres', password='postgres',
-                            host='127.0.0.1', port='5432')
-    return conn
+# def address_base_data():
+#     conn = psycopg2.connect(dbname='database', user='postgres', password='postgres',
+#                             host='127.0.0.1', port='5432')
+#     return conn
 # print(address_base_data())
 
 
