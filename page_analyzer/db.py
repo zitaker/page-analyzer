@@ -1,17 +1,18 @@
 import psycopg2
 import os
 
-# from dataclasses import dataclass
+from dataclasses import dataclass
 
 
 DATABASE_URL = os.getenv('DATABASE_URL')
 conn = psycopg2.connect(DATABASE_URL)
 
 
-def address_base_data():
-    conn = psycopg2.connect(dbname='database', user='postgres', password='postgres',
-                            host='127.0.0.1', port='5432')
-    return conn
+# def address_base_data():
+#     conn = psycopg2.connect(dbname='database', user='postgres', password='postgres',
+#                             host='127.0.0.1', port='5432')
+#     return conn
+# print(address_base_data())
 
 
 # @dataclass
@@ -21,16 +22,21 @@ def address_base_data():
 #     password: str
 #     host: str
 #     port: str
-#
-#
-#     def method(self):
-#         conn = psycopg2.connect(self.dbname, self.user, self.password,
-#                             self.host, self.port)
-#         return conn
 
-# address_base_data = address_base_data('database', 'postgres','postgres', '127.0.0.1', '5432')
+    # def __init__(self, dbname, user, password, host, port):
+    #     self.dbname = dbname
+    #     self.user = user
+    #     self.password = password
+    #     self.host = host
+    #     self.port = port
+
+    # def method(self):
+    #     conn = psycopg2.connect(self.dbname, self.user, self.password,
+    #                         self.host, self.port)
+    #     return conn
+
+# address_base_data = address_base_data('database', 'postgres', 'postgres', '127.0.0.1', '5432')
 # print(address_base_data)
-
 
 
 # class address_base_data(object):

@@ -7,7 +7,7 @@ from flask import request
 from psycopg2.extras import NamedTupleCursor
 from flask import redirect
 from flask import flash
-from .db import address_base_data
+# from .db import address_base_data
 
 DATABASE_URL = os.getenv('DATABASE_URL')
 conn = psycopg2.connect(DATABASE_URL)
