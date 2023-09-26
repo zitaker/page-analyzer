@@ -28,7 +28,7 @@ def index():
 @app.route('/urls/', methods=['POST'])
 def page_urls():
     # conn = address_base_data()
-    DATABASE_URL = os.getenv('DATABASE_URL')
+    # DATABASE_URL = os.getenv('DATABASE_URL')
     conn = psycopg2.connect(DATABASE_URL)
     if request.method == 'POST':
         get_request_form = request.form.get('url')
@@ -67,7 +67,7 @@ def page_urls():
 @app.route('/urls/<int:id>', methods=['GET'])
 def get_urls(id):
     # conn = address_base_data()
-    DATABASE_URL = os.getenv('DATABASE_URL')
+    # DATABASE_URL = os.getenv('DATABASE_URL')
     conn = psycopg2.connect(DATABASE_URL)
     if request.method == 'GET':
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
@@ -82,7 +82,7 @@ def get_urls(id):
 @app.route('/urls', methods=['GET'])
 def urls():
     # conn = address_base_data()
-    DATABASE_URL = os.getenv('DATABASE_URL')
+    # DATABASE_URL = os.getenv('DATABASE_URL')
     conn = psycopg2.connect(DATABASE_URL)
     if request.method == 'GET':
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
