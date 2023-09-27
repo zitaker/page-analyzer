@@ -43,13 +43,13 @@ def page_urls():
                 flash('Страница уже существует', category='exists')
                 return redirect(item.id)
 
-            curs.execute("INSERT INTO urls (name) VALUES (%s)", [get_request_form[:elem]])
-            if 'http://' in get_request_form or 'https://' in get_request_form:
-                flash('Страница успешно добавлена', category='success')
-                conn.commit()
-            else:
+            if not ('http://' in get_request_form or 'https://' in get_request_form):
                 flash('Некорректный URL', category='error')
                 return redirect('/')
+
+            curs.execute("INSERT INTO urls (name) VALUES (%s)", [get_request_form[:elem]])
+            flash('Страница успешно добавлена', category='success')
+            conn.commit()
 
             curs.execute('SELECT id FROM urls ORDER BY id DESC;', [id])
             row = curs.fetchmany(size=1)
