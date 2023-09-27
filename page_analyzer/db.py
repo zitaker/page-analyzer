@@ -1,8 +1,6 @@
 import psycopg2
 import os
 
-# from dataclasses import dataclass
-
 
 DATABASE_URL = os.getenv('DATABASE_URL')
 conn = psycopg2.connect(DATABASE_URL)
@@ -13,37 +11,6 @@ conn = psycopg2.connect(DATABASE_URL)
 #                             host='127.0.0.1', port='5432')
 #     return conn
 # print(address_base_data())
-
-
-# @dataclass
-# class address_base_data:
-#     dbname: str
-#     user: str
-#     password: str
-#     host: str
-#     port: str
-
-    # def __init__(self, dbname, user, password, host, port):
-    #     self.dbname = dbname
-    #     self.user = user
-    #     self.password = password
-    #     self.host = host
-    #     self.port = port
-
-    # def method(self):
-    #     conn = psycopg2.connect(self.dbname, self.user, self.password,
-    #                         self.host, self.port)
-    #     return conn
-
-# address_base_data = address_base_data('database', 'postgres', 'postgres', '127.0.0.1', '5432')
-# print(address_base_data)
-
-
-# class address_base_data(object):
-#     if os.getenv('DATABASE_URL'):
-#         SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL').replace("postgres://", "postgresql://", 1)
-#     else:
-#         SQLALCHEMY_DATABASE_URI = f"sqlite:///{os.path.join(BASEDIR, 'instance', 'app.db')}"
 
 
 # def insert_into_urls():
