@@ -28,8 +28,10 @@
 {% endfor %}
 <h2 class="mt-5 mb-3">Проверки</h2>
 
-<form method="post" action="/urls/1/checks">
-    <input type="submit" class="btn btn-primary" value="Запустить проверку">
+
+<form method="post" action="/">
+
+    <input name="checks" type="submit" class="btn btn-primary" value="Запустить проверку">
 </form>
 
 <div>
@@ -43,6 +45,18 @@
         <th>description</th>
         <th>Дата создания</th>
       </tr>
+
+    {% for elem in url_id_row %}
+      <tr>
+        <th>{{ elem.id }}</th>
+        <th>{{ elem.status_code }}</th>
+        <th>{{ elem.h1 }}</th>
+        <th>{{ elem.title }}</th>
+        <th>{{ elem.description }}</th>
+        <th>{{ elem.created_at }}</th>
+      </tr>
+    {% endfor %}
+
     </thead>
       <tbody>
 
