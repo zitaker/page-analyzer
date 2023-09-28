@@ -67,9 +67,14 @@ def get_urls(id):
             curs.execute("SELECT * FROM urls WHERE id = (%s)", [id])
             row = curs.fetchmany(size=1)
             id == row
+
+        with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
+            curs.execute("SELECT * FROM url_checks ORDER BY id DESC", [id])
+            url_id_row = curs.fetchmany(size=1)
+            id == url_id_row
             conn.close()
 
-    return render_template('show.html', row=row)
+    return render_template('show.html', row=row, url_id_row=url_id_row)
 
 # 1 вывод информации по нажатию на кнопку
 # 2 сохранение информации в таблицу по нажатию на кнопку
@@ -89,18 +94,6 @@ def urls():
 
     return render_template('urls.html')
 
-
-@app.route('/urls/<int:id>', methods=['GET'])
-def checks(id):
-    conn = psycopg2.connect(DATABASE_URL)
-    if request.method == 'GET':
-        with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-            curs.execute("SELECT * FROM url_checks ORDER BY id DESC", [id])
-            url_id_row = curs.fetchmany(size=1)
-            id == url_id_row
-            conn.close()
-
-    return render_template('show.html', url_id_row=url_id_row)
 
 @app.route('/process_data', methods=['POST'])
 def button():
