@@ -102,6 +102,18 @@ def checks(id):
 
     return render_template('show.html', url_id_row=url_id_row)
 
+@app.route('/process_data', methods=['POST'])
+def button():
+    conn = psycopg2.connect(DATABASE_URL)
+    # if request.method == 'GET':
+    with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
+        curs.execute("SELECT * FROM url_checks ORDER BY id DESC")
+        url_id_row = curs.fetchmany(size=1)
+        conn.close()
+
+    return render_template('show.html', url_id_row=url_id_row)
+
+
 @app.errorhandler(404)
 def page_not_fount(error):
     return render_template('page_404.html', title='Страница не найдена')
