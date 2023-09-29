@@ -63,26 +63,22 @@ def page_urls():
 def get_urls(id):
     conn = psycopg2.connect(DATABASE_URL)
 
-    if request.method == 'GET':
+    if request.method == ['GET'] or ['POST']:
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
             curs.execute("SELECT * FROM urls WHERE id = (%s)", [id])
             row = curs.fetchmany(size=1)
-            id == row
-            conn.close()
+            # id == row
 
     if request.method == 'GET':
         return render_template('show.html', row=row)
     if request.method == 'POST':
         flash('Страница успешно проверена', category='success')
-        with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-            curs.execute("SELECT * FROM urls WHERE id = (%s)", [id])
-            row = curs.fetchmany(size=1)
-            id == row
 
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
             curs.execute("SELECT * FROM url_checks ORDER BY id DESC")
             url_id_row = curs.fetchmany(size=1)
-            conn.close()
+        conn.close()
+
         data_post = render_template('show.html', row=row, url_id_row=url_id_row)
         return data_post
 
