@@ -59,24 +59,34 @@ def page_urls():
             return redirect(elem.id)
 
 
-@app.route('/urls/<int:id>', methods=['GET'])
+@app.route('/urls/<int:id>', methods=['GET', 'POST'])
 def get_urls(id):
     conn = psycopg2.connect(DATABASE_URL)
+
     if request.method == 'GET':
+        with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
+            curs.execute("SELECT * FROM urls WHERE id = (%s)", [id])
+            row = curs.fetchmany(size=1)
+            id == row
+            conn.close()
+
+    if request.method == 'GET':
+        return render_template('show.html', row=row)
+    if request.method == 'POST':
+        flash('Страница успешно проверена', category='success')
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
             curs.execute("SELECT * FROM urls WHERE id = (%s)", [id])
             row = curs.fetchmany(size=1)
             id == row
 
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-            curs.execute("SELECT * FROM url_checks ORDER BY id DESC", [id])
+            curs.execute("SELECT * FROM url_checks ORDER BY id DESC")
             url_id_row = curs.fetchmany(size=1)
-            id == url_id_row
             conn.close()
+        data_post = render_template('show.html', row=row, url_id_row=url_id_row)
+        return data_post
 
-    return render_template('show.html', row=row, url_id_row=url_id_row)
 
-# 1 вывод информации по нажатию на кнопку
 # 2 сохранение информации в таблицу по нажатию на кнопку
 # 3 вывод информации из таблицы только что сохраненную
 # 4 вывод информации url_id на страницу index в ряд (Код ответа)
@@ -97,14 +107,8 @@ def urls():
 
 @app.route('/process_data', methods=['POST'])
 def button():
-    conn = psycopg2.connect(DATABASE_URL)
-    # if request.method == 'GET':
-    with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-        curs.execute("SELECT * FROM url_checks ORDER BY id DESC")
-        url_id_row = curs.fetchmany(size=1)
-        conn.close()
-
-    return render_template('show.html', url_id_row=url_id_row)
+    if request.method == 'POST':
+        return 'index'
 
 
 @app.errorhandler(404)
