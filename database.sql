@@ -27,4 +27,4 @@ CREATE TABLE url_checks (
 
 
 --SELECT * FROM urls;
-SELECT * FROM url_checks;
+--SELECT * FROM url_checks;
