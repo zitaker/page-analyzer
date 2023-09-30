@@ -75,6 +75,7 @@ def get_urls(id):
         flash('Страница успешно проверена', category='success')
 
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
+            curs.execute("INSERT INTO url_checks (h1) VALUES ('111')")
             curs.execute("SELECT * FROM url_checks ORDER BY id DESC")
             url_id_row = curs.fetchmany(size=1)
         conn.close()
