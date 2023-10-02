@@ -17,7 +17,7 @@
     {% for elem in rows %}
     <tr>
       <th>{{ elem.id }}</th>
-      <th>{{ elem.name }}</th>
+      <th><a href="urls/{{ elem.id }}">{{ elem.name }}</a></th>
       <th>{{ elem.created_at }}</th>
       <th></th>
     </tr>

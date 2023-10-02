@@ -76,7 +76,7 @@ def get_urls(id):
 
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
             curs.execute("INSERT INTO url_checks (url_id) VALUES (%s);", [id])
-            curs.execute("SELECT * FROM url_checks ORDER BY id DESC")
+            curs.execute("SELECT * FROM url_checks WHERE url_id = (%s) ORDER BY id DESC", [id])
             url_id_row = curs.fetchall()
             conn.commit()
         conn.close()
@@ -84,10 +84,9 @@ def get_urls(id):
         data_post = render_template('show.html', row=row, url_id_row=url_id_row)
         return data_post
 
-
-# 2 сохранение информации в таблицу по нажатию на кнопку
-# 3 вывод информации из таблицы только что сохраненную
-# 4 вывод информации url_id на страницу index в ряд (Код ответа)
+# вывод сообщения что лимит превышен в 255 символов
+# замена данных в - Выведите в списке сайтов дату последней проверки рядом с каждым сайтом
+# при повторном открытии существующего адреса после применения метота POST - сразу выводить данные из двух таблиц
 
 @app.route('/urls', methods=['GET'])
 def urls():
