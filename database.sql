@@ -1,5 +1,5 @@
---DROP TABLE IF EXISTS url_checks;
---DROP TABLE IF EXISTS urls;
+DROP TABLE IF EXISTS url_checks;
+DROP TABLE IF EXISTS urls;
 
 
 CREATE TABLE urls (
@@ -10,19 +10,13 @@ CREATE TABLE urls (
 
 CREATE TABLE url_checks (
     id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
---    url_checks text,
-
     url_id bigint REFERENCES urls (id),
---    url_id bigint REFERENCES urls(id),
---    FOREIGN KEY url_id REFERENCES urls (id),
---    ALTER TABLE url_checks ADD FOREIGN KEY (url_id) REFERENCES urls(id),
---    FOREIGN KEY (url_id) REFERENCES urls(id),
---    ALTER TABLE (url_id) bigint REFERENCES urls(id),
     status_code numeric,
     h1 text,
     title text,
     description text,
-    created_at DATE NOT NULL DEFAULT CURRENT_TIMESTAMP
+--    created_at DATE NOT NULL DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 

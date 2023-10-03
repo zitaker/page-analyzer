@@ -1,8 +1,7 @@
 {% extends "base.html" %}
-
 {% block title %}Сайты{% endblock %}
-{% block h1 %}Сайты{% endblock %}
 {% block main %}
+<h1>Сайты</h1>
 
 <div class="table-responsive">
   <table class="table table-bordered table-hover text-nowrap" data-test="urls">
@@ -14,14 +13,23 @@
       <th>Код ответа</th>
     </tr>
 
-    {% for elem in rows %}
+{% for elem in rows %}
     <tr>
       <th>{{ elem.id }}</th>
       <th><a href="urls/{{ elem.id }}">{{ elem.name }}</a></th>
-      <th>{{ elem.created_at }}</th>
+<!--      <th>{{ elem.created_at }}</th>-->
+
+  {% for sub_elem in sub_url_id_row %}
+    <th>{{ sub_elem.created_at }}</th>
+  {% endfor %}
+
       <th></th>
     </tr>
-    {% endfor %}
+{% endfor %}
+
+  {% for item in url_id_row %}
+  <p>{{ item.created_at }}</p>
+  {% endfor %}
 
     </thead>
     <tbody>

@@ -84,8 +84,8 @@ def get_urls(id):
         data_post = render_template('show.html', row=row, url_id_row=url_id_row)
         return data_post
 
-# вывод сообщения что лимит превышен в 255 символов
 # замена данных в - Выведите в списке сайтов дату последней проверки рядом с каждым сайтом
+# вывод сообщения что лимит превышен в 255 символов
 # при повторном открытии существующего адреса после применения метота POST - сразу выводить данные из двух таблиц
 
 @app.route('/urls', methods=['GET'])
@@ -95,9 +95,13 @@ def urls():
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
             curs.execute('SELECT * FROM urls ORDER BY id DESC;')
             rows = curs.fetchall()
+
+            curs.execute('SELECT * FROM url_checks ORDER BY id DESC;')
+            # curs.execute("SELECT * FROM url_checks WHERE url_id = (%s) ORDER BY id DESC", [id])
+            sub_url_id_row = curs.fetchmany(size=1)
             conn.close()
             return render_template(
-            'urls.html', rows=rows)
+            'urls.html', rows=rows, sub_url_id_row=sub_url_id_row)
 
     return render_template('urls.html')
 
