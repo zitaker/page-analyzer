@@ -18,18 +18,15 @@
       <th>{{ elem.id }}</th>
       <th><a href="urls/{{ elem.id }}">{{ elem.name }}</a></th>
 <!--      <th>{{ elem.created_at }}</th>-->
+<!--        <th>{{ elem.created_qwerty }}</th>-->
 
   {% for sub_elem in sub_url_id_row %}
-    <th>{{ sub_elem.created_at }}</th>
+    <th>{{ sub_elem.created_qwerty }}</th>
   {% endfor %}
 
       <th></th>
     </tr>
 {% endfor %}
-
-  {% for item in url_id_row %}
-  <p>{{ item.created_at }}</p>
-  {% endfor %}
 
     </thead>
     <tbody>
