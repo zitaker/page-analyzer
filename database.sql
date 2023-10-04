@@ -17,7 +17,7 @@ CREATE TABLE url_checks (
     description text,
 --    created_at DATE NOT NULL DEFAULT CURRENT_TIMESTAMP
 --    created_qwerty TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    created_qwerty TIME DEFAULT CURRENT_TIMESTAMP
+    created_at TIME DEFAULT CURRENT_TIMESTAMP
 );
 
 --CREATE TABLE urls (id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY, name varchar(255) unique NOT NULL, created_at DATE NOT NULL DEFAULT CURRENT_TIMESTAMP);
@@ -34,3 +34,11 @@ CREATE TABLE url_checks (
 
 SELECT * FROM urls;
 SELECT * FROM url_checks;
+
+--SELECT (urls.id, urls.name, url_checks.created_at) FROM urls FULL JOIN url_checks ON urls.id = url_checks.url_id ORDER BY urls.id DESC;
+
+SELECT (urls.id, urls.name, url_checks.created_at) FROM urls FULL JOIN url_checks ON urls.id = url_checks.url_id ORDER BY urls.id DESC;
+
+SELECT * FROM url_checks WHERE url_id = '1' ORDER BY created_at DESC LIMIT 1;
+
+
