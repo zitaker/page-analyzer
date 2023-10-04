@@ -37,8 +37,28 @@ SELECT * FROM url_checks;
 
 --SELECT (urls.id, urls.name, url_checks.created_at) FROM urls FULL JOIN url_checks ON urls.id = url_checks.url_id ORDER BY urls.id DESC;
 
-SELECT urls.id, urls.name, url_checks.created_at FROM urls FULL JOIN url_checks ON urls.id = url_checks.url_id ORDER BY urls.id DESC;
+--SELECT urls.id, urls.name, url_checks.created_at FROM urls FULL JOIN url_checks ON urls.id = url_checks.url_id ORDER BY urls.id DESC;
+--SELECT * FROM url_checks WHERE url_id = '1' ORDER BY created_at DESC LIMIT 1;
 
-SELECT * FROM url_checks WHERE url_id = '1' ORDER BY created_at DESC LIMIT 1;
+--SELECT urls.id, urls.name, url_checks.created_at FROM urls FULL JOIN url_checks ON urls.id = url_checks.url_id ORDER BY urls.id DESC;
+--SELECT * FROM url_checks WHERE url_id = '1' ORDER BY created_at DESC LIMIT 1;
+
+--SELECT DISTINCT url_id FROM url_checks;
+--
+--SELECT DISTINCT ON (urls.id) urls.id, urls.name, url_checks.created_at FROM urls FULL JOIN url_checks ON urls.id = url_checks.url_id ORDER BY urls.id DESC;
+
+--SELECT DISTINCT ON (urls.id) urls.id, urls.name, url_checks.created_at FROM urls FULL JOIN url_checks ON urls.id = url_checks.url_id ORDER BY urls.id DESC;
 
 
+--SELECT * FROM url_checks WHERE created_at = (SELECT MAX(created_at) FROM url_checks);
+
+SELECT DISTINCT ON
+    (urls.id) urls.id,
+    urls.name,
+    url_checks.created_at
+FROM urls FULL JOIN url_checks ON urls.id = url_checks.url_id
+ORDER BY urls.id DESC, created_at DESC;
+
+--SELECT url_id, MAX(created_at), COUNT(*) AS url_id from url_checks;
+
+--SELECT url_id, created_at FROM url_checks ORDER BY url_id DESC, created_at DESC;

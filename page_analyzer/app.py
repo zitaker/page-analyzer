@@ -94,7 +94,7 @@ def urls():
     if request.method == 'GET':
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
             # curs.execute('SELECT * FROM urls ORDER BY id DESC;')
-            curs.execute('SELECT urls.id, urls.name, url_checks.created_at FROM urls FULL JOIN url_checks ON urls.id = url_checks.url_id ORDER BY urls.id DESC;')
+            curs.execute("SELECT DISTINCT ON (urls.id) urls.id, urls.name, url_checks.created_at FROM urls FULL JOIN url_checks ON urls.id = url_checks.url_id ORDER BY urls.id DESC, created_at DESC;")
             rows = curs.fetchall()
             conn.close()
             return render_template(
