@@ -12,12 +12,11 @@
       <th>Последняя проверка</th>
       <th>Код ответа</th>
     </tr>
-
 {% for elem in rows %}
     <tr>
       <th>{{ elem.id }}</th>
       <th><a href="urls/{{ elem.id }}">{{ elem.name }}</a></th>
-<!--      <th>{{ elem.created_at }}</th>-->
+      <th>{{ elem.created_at }}</th>
 <!--        <th>{{ elem.created_qwerty }}</th>-->
 
       <th></th>

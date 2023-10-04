@@ -37,7 +37,7 @@ SELECT * FROM url_checks;
 
 --SELECT (urls.id, urls.name, url_checks.created_at) FROM urls FULL JOIN url_checks ON urls.id = url_checks.url_id ORDER BY urls.id DESC;
 
-SELECT (urls.id, urls.name, url_checks.created_at) FROM urls FULL JOIN url_checks ON urls.id = url_checks.url_id ORDER BY urls.id DESC;
+SELECT urls.id, urls.name, url_checks.created_at FROM urls FULL JOIN url_checks ON urls.id = url_checks.url_id ORDER BY urls.id DESC;
 
 SELECT * FROM url_checks WHERE url_id = '1' ORDER BY created_at DESC LIMIT 1;
 

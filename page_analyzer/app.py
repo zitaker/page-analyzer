@@ -94,15 +94,8 @@ def urls():
     if request.method == 'GET':
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
             # curs.execute('SELECT * FROM urls ORDER BY id DESC;')
-            curs.execute('SELECT (urls.id, urls.name, url_checks.created_at) FROM urls FULL JOIN url_checks ON urls.id = url_checks.url_id ORDER BY urls.id DESC;')
-            # curs.execute('SELECT * FROM urls join created_qwerty url_checks ORDER BY id DESC;')
+            curs.execute('SELECT urls.id, urls.name, url_checks.created_at FROM urls FULL JOIN url_checks ON urls.id = url_checks.url_id ORDER BY urls.id DESC;')
             rows = curs.fetchall()
-
-            # curs.execute('SELECT * FROM url_checks ORDER BY id DESC;')
-            # curs.execute('SELECT * FROM url_checks WHERE url_id = (%s) ORDER BY id DESC;', [id])
-            # curs.execute('select u.id, u.name, uc.created_qwerty from urls u join url_checks uc on u.id=uc.url_id ORDER BY id DESC;')
-            # sub_url_id_row = curs.fetchmany(size=1)
-
             conn.close()
             return render_template(
             'urls.html', rows=rows)
