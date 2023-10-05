@@ -20,7 +20,6 @@ CREATE TABLE url_checks (
 
 
 
-
 --INSERT INTO urls (name) VALUES ('Arya');
 --INSERT INTO urls (name) VALUES ('Bron');
 
