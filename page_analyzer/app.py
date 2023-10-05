@@ -18,10 +18,6 @@ app.config['SECRET_KEY'] = 'dergegkp20sdJUOIe3309f267jrthKfe42hrs'
 
 # with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
 #     curs.execute("DROP TABLE IF EXISTS urls;")
-#     conn.commit()
-#     conn.close()
-#
-# with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
 #     curs.execute("DROP TABLE IF EXISTS url_checks;")
 #     conn.commit()
 #     conn.close()
