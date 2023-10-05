@@ -16,6 +16,15 @@ conn = psycopg2.connect(DATABASE_URL)
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'dergegkp20sdJUOIe3309f267jrthKfe42hrs'
 
+# with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
+#     curs.execute("DROP TABLE IF EXISTS urls;")
+#     conn.commit()
+#     conn.close()
+#
+# with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
+#     curs.execute("DROP TABLE IF EXISTS url_checks;")
+#     conn.commit()
+#     conn.close()
 
 with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
     curs.execute("CREATE TABLE urls (id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY, name varchar(255) unique NOT NULL, created_at DATE NOT NULL DEFAULT CURRENT_TIMESTAMP);")
