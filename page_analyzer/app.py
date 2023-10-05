@@ -26,11 +26,11 @@ app.config['SECRET_KEY'] = 'dergegkp20sdJUOIe3309f267jrthKfe42hrs'
 #     conn.commit()
 #     conn.close()
 
-with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-    curs.execute("CREATE TABLE urls (id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY, name varchar(255) unique NOT NULL, created_at DATE NOT NULL DEFAULT CURRENT_TIMESTAMP);")
-    curs.execute("CREATE TABLE url_checks (id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY, url_id bigint REFERENCES urls (id), status_code numeric, h1 text, title text, description text, created_at DATE NOT NULL DEFAULT CURRENT_TIMESTAMP);")
-    conn.commit()
-    conn.close()
+# with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
+#     curs.execute("CREATE TABLE urls (id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY, name varchar(255) unique NOT NULL, created_at DATE NOT NULL DEFAULT CURRENT_TIMESTAMP);")
+#     curs.execute("CREATE TABLE url_checks (id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY, url_id bigint REFERENCES urls (id), status_code numeric, h1 text, title text, description text, created_at DATE NOT NULL DEFAULT CURRENT_TIMESTAMP);")
+#     conn.commit()
+#     conn.close()
 
 
 @app.route('/')
