@@ -17,6 +17,11 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'dergegkp20sdJUOIe3309f267jrthKfe42hrs'
 
 
+with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
+    curs.execute("CREATE TABLE url_checks (id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY, url_id bigint REFERENCES urls (id), status_code numeric, h1 text, title text, description text, created_at DATE NOT NULL DEFAULT CURRENT_TIMESTAMP);")
+    conn.commit()
+    conn.close()
+
 @app.route('/')
 def index():
     return render_template('index.html')
