@@ -47,6 +47,10 @@ def page_urls():
                 flash('Некорректный URL', category='error')
                 return redirect('/')
 
+            if len(get_request_form) > 255:
+                flash('URL превышает 255 символов', category='error')
+                return redirect('/')
+
             curs.execute("INSERT INTO urls (name) VALUES (%s)", [get_request_form[:elem]])
             flash('Страница успешно добавлена', category='success')
             conn.commit()
@@ -84,7 +88,6 @@ def get_urls(id):
         data_post = render_template('show.html', row=row, url_id_row=url_id_row)
         return data_post
 
-# вывод сообщения что лимит превышен в 255 символов
 # при повторном открытии существующего адреса после применения метота POST - сразу выводить данные из двух таблиц
 
 @app.route('/urls', methods=['GET'])
@@ -92,7 +95,6 @@ def urls():
     conn = psycopg2.connect(DATABASE_URL)
     if request.method == 'GET':
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-            # curs.execute('SELECT * FROM urls ORDER BY id DESC;')
             curs.execute("SELECT DISTINCT ON (urls.id) urls.id, urls.name, url_checks.created_at FROM urls FULL JOIN url_checks ON urls.id = url_checks.url_id ORDER BY urls.id DESC, created_at DESC;")
             rows = curs.fetchall()
             conn.close()
