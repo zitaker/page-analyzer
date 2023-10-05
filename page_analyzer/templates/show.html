@@ -51,14 +51,25 @@
       </tr>
 
   {% for elem in url_id_row %}
+  <tbody>
       <tr>
         <th>{{ elem.id }}</th>
-        <th>{{ elem.status_code }}</th>
-        <th>{{ elem.h1 }}</th>
-        <th>{{ elem.title }}</th>
-        <th>{{ elem.description }}</th>
+
+        {% if elem.status_code or elem.h1 or elem.title or elem.description %}
+            <th>{{ elem.status_code }}</th>
+            <th>{{ elem.h1 }}</th>
+            <th>{{ elem.title }}</th>
+            <th>{{ elem.description }}</th>
+        {% else %}
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        {% endif %}
+
         <th>{{ elem.created_at }}</th>
       </tr>
+  </tbody>
     {% endfor %}
 
 

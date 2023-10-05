@@ -71,10 +71,13 @@ def get_urls(id):
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
             curs.execute("SELECT * FROM urls WHERE id = (%s)", [id])
             row = curs.fetchmany(size=1)
+
+            curs.execute("SELECT * FROM url_checks WHERE url_id = (%s) ORDER BY id DESC", [id])
+            url_id_row = curs.fetchall()
             # id == row
 
     if request.method == 'GET':
-        return render_template('show.html', row=row)
+        return render_template('show.html', row=row, url_id_row=url_id_row)
     if request.method == 'POST':
         flash('Страница успешно проверена', category='success')
 
