@@ -7,7 +7,7 @@
     <list default="true" id="76f6dee7-cac9-4782-a812-ddb39dd591bf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/page_analyzer/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/page_analyzer/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/page_analyzer/templates/urls.html" beforeDir="false" afterPath="$PROJECT_DIR$/page_analyzer/templates/urls.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

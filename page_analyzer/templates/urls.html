@@ -16,8 +16,11 @@
     <tr>
       <th>{{ elem.id }}</th>
       <th><a href="urls/{{ elem.id }}">{{ elem.name }}</a></th>
-      <th>{{ elem.created_at }}</th>
-<!--        <th>{{ elem.created_qwerty }}</th>-->
+        {% if elem.created_at %}
+            <th>{{ elem.created_at }}</th>
+        {% else %}
+            <th></th>
+        {% endif %}
 
       <th></th>
     </tr>

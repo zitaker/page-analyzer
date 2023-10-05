@@ -1,5 +1,5 @@
---DROP TABLE IF EXISTS url_checks;
---DROP TABLE IF EXISTS urls;
+DROP TABLE IF EXISTS url_checks;
+DROP TABLE IF EXISTS urls;
 
 
 CREATE TABLE urls (
@@ -15,9 +15,8 @@ CREATE TABLE url_checks (
     h1 text,
     title text,
     description text,
---    created_at DATE NOT NULL DEFAULT CURRENT_TIMESTAMP
---    created_qwerty TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    created_at TIME DEFAULT CURRENT_TIMESTAMP
+    created_at DATE NOT NULL DEFAULT CURRENT_TIMESTAMP
+--    created_at TIME DEFAULT CURRENT_TIMESTAMP
 );
 
 --CREATE TABLE urls (id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY, name varchar(255) unique NOT NULL, created_at DATE NOT NULL DEFAULT CURRENT_TIMESTAMP);
@@ -52,12 +51,12 @@ SELECT * FROM url_checks;
 
 --SELECT * FROM url_checks WHERE created_at = (SELECT MAX(created_at) FROM url_checks);
 
-SELECT DISTINCT ON
-    (urls.id) urls.id,
-    urls.name,
-    url_checks.created_at
-FROM urls FULL JOIN url_checks ON urls.id = url_checks.url_id
-ORDER BY urls.id DESC, created_at DESC;
+--SELECT DISTINCT ON
+--    (urls.id) urls.id,
+--    urls.name,
+--    url_checks.created_at
+--FROM urls FULL JOIN url_checks ON urls.id = url_checks.url_id
+--ORDER BY urls.id DESC, created_at DESC;
 
 --SELECT url_id, MAX(created_at), COUNT(*) AS url_id from url_checks;
 
