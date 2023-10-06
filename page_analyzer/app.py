@@ -1,5 +1,6 @@
 import psycopg2
 import os
+import requests
 
 from flask import Flask
 from flask import render_template
@@ -94,8 +95,13 @@ def get_urls(id):
         flash('Страница успешно проверена', category='success')
 
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-            curs.execute("INSERT INTO url_checks (url_id) VALUES (%s);", [id])
+            url = 'http://127.0.0.1:8000/'
+            response = requests.get(url)
+            status_code = response.status_code
+            # curs.execute("INSERT INTO url_checks (status_code) VALUES (%s);", [status_code])
+            curs.execute("INSERT INTO url_checks (url_id, status_code) VALUES (%s, %s);", [id, status_code])
             curs.execute("SELECT * FROM url_checks WHERE url_id = (%s) ORDER BY id DESC", [id])
+
             url_id_row = curs.fetchall()
             conn.commit()
         conn.close()
