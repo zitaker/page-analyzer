@@ -95,10 +95,14 @@ def get_urls(id):
         flash('Страница успешно проверена', category='success')
 
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-            url = 'http://127.0.0.1:8000/'
+            curs.execute("SELECT name FROM urls WHERE id = (%s)", [id])
+            row_name = curs.fetchmany(size=1)
+            for elem in row_name:
+                url = elem.name
             response = requests.get(url)
             status_code = response.status_code
-            # curs.execute("INSERT INTO url_checks (status_code) VALUES (%s);", [status_code])
+
+            # curs.execute("INSERT INTO url_checks (url_id) VALUES (%s);", [id])
             curs.execute("INSERT INTO url_checks (url_id, status_code) VALUES (%s, %s);", [id, status_code])
             curs.execute("SELECT * FROM url_checks WHERE url_id = (%s) ORDER BY id DESC", [id])
 
