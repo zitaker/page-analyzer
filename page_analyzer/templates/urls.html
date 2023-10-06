@@ -17,13 +17,14 @@
     <tr>
       <th>{{ elem.id }}</th>
       <th><a href="urls/{{ elem.id }}">{{ elem.name }}</a></th>
-        {% if elem.created_at %}
+        {% if elem.created_at or elem.status_code %}
             <th>{{ elem.created_at }}</th>
+            <th>{{ elem.status_code }}</th>
         {% else %}
+            <th></th>
             <th></th>
         {% endif %}
 
-      <th></th>
     </tr>
     </tbody>
 {% endfor %}

@@ -113,14 +113,13 @@ def get_urls(id):
         data_post = render_template('show.html', row=row, url_id_row=url_id_row)
         return data_post
 
-# при повторном открытии существующего адреса после применения метота POST - сразу выводить данные из двух таблиц
 
 @app.route('/urls', methods=['GET'])
 def urls():
     conn = psycopg2.connect(DATABASE_URL)
     if request.method == 'GET':
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-            curs.execute("SELECT DISTINCT ON (urls.id) urls.id, urls.name, url_checks.created_at FROM urls FULL JOIN url_checks ON urls.id = url_checks.url_id ORDER BY urls.id DESC, created_at DESC;")
+            curs.execute("SELECT DISTINCT ON (urls.id) urls.id, urls.name, url_checks.created_at, url_checks.status_code FROM urls FULL JOIN url_checks ON urls.id = url_checks.url_id ORDER BY urls.id DESC, created_at DESC;")
             rows = curs.fetchall()
             conn.close()
             return render_template(
