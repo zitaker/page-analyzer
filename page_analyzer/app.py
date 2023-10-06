@@ -92,15 +92,25 @@ def get_urls(id):
     if request.method == 'GET':
         return render_template('show.html', row=row, url_id_row=url_id_row)
     if request.method == 'POST':
-        flash('Страница успешно проверена', category='success')
 
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
             curs.execute("SELECT name FROM urls WHERE id = (%s)", [id])
             row_name = curs.fetchmany(size=1)
             for elem in row_name:
                 url = elem.name
-            response = requests.get(url)
-            status_code = response.status_code
+
+            try:
+                response = requests.get(url)
+                status_code = response.status_code
+            except:
+                flash('Произошла ошибка при проверке', category='error')
+
+                curs.execute('SELECT id FROM urls ORDER BY id DESC;', [id])
+                row = curs.fetchmany(size=1)
+                conn.close()
+                
+                for elem in row:
+                    return redirect(elem.id)
 
             # curs.execute("INSERT INTO url_checks (url_id) VALUES (%s);", [id])
             curs.execute("INSERT INTO url_checks (url_id, status_code) VALUES (%s, %s);", [id, status_code])
@@ -108,6 +118,7 @@ def get_urls(id):
 
             url_id_row = curs.fetchall()
             conn.commit()
+            flash('Страница успешно проверена', category='success')
         conn.close()
 
         data_post = render_template('show.html', row=row, url_id_row=url_id_row)
