@@ -29,6 +29,8 @@ app.config['SECRET_KEY'] = 'dergegkp20sdJUOIe3309f267jrthKfe42hrs'
 #     conn.commit()
 #     conn.close()
 
+def qwerty():
+    return '123asd'
 
 @app.route('/')
 def index():

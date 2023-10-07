@@ -14,3 +14,8 @@ start:
 
 loading:
 	poetry run flask --app page_analyzer/app --debug run --port 8000
+
+
+#	poetry run flake8 page_analyzer
+#	poetry run pytest -vv
+
