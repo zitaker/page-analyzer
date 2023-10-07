@@ -24,13 +24,21 @@ app.config['SECRET_KEY'] = 'dergegkp20sdJUOIe3309f267jrthKfe42hrs'
 #     conn.close()
 
 # with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-#     curs.execute("CREATE TABLE urls (id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY, name varchar(255) unique NOT NULL, created_at DATE NOT NULL DEFAULT CURRENT_TIMESTAMP);")
-#     curs.execute("CREATE TABLE url_checks (id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY, url_id bigint REFERENCES urls (id), status_code numeric, h1 text, title text, description text, created_at DATE NOT NULL DEFAULT CURRENT_TIMESTAMP);")
+#     curs.execute(
+#         "CREATE TABLE urls"
+#         "(id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,"
+#         "name varchar(255) unique NOT NULL,"
+#         "created_at DATE NOT NULL DEFAULT CURRENT_TIMESTAMP);")
+#     curs.execute(
+#         "CREATE TABLE url_checks"
+#         "(id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,"
+#         "url_id bigint REFERENCES urls (id),"
+#         "status_code numeric, h1 text, title text,"
+#         "description text,"
+#         "created_at DATE NOT NULL DEFAULT CURRENT_TIMESTAMP);")
 #     conn.commit()
 #     conn.close()
 
-def qwerty():
-    return '123asd'
 
 @app.route('/')
 def index():
@@ -44,7 +52,8 @@ def page_urls():
         get_request_form = request.form.get('url')
 
         symbol = '/'
-        indexes = [i for i, slash in enumerate(get_request_form) if slash == symbol]
+        indexes = [i for i, slash in enumerate(get_request_form)
+                   if slash == symbol]
 
         if len(indexes) < 3:
             elem = len(get_request_form)
@@ -52,13 +61,17 @@ def page_urls():
             elem = indexes[2]
 
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-            curs.execute("SELECT id FROM urls WHERE name = (%s);", [get_request_form[:elem]])
+            curs.execute(
+                "SELECT id FROM urls WHERE name = (%s);",
+                [get_request_form[:elem]]
+            )
             already_exists_line = curs.fetchmany(size=1)
             for item in already_exists_line:
                 flash('Страница уже существует', category='exists')
                 return redirect(item.id)
 
-            if not ('http://' in get_request_form or 'https://' in get_request_form):
+            if not ('http://' in get_request_form
+                    or 'https://' in get_request_form):
                 flash('Некорректный URL', category='error')
                 return redirect('/')
 
@@ -66,7 +79,10 @@ def page_urls():
                 flash('URL превышает 255 символов', category='error')
                 return redirect('/')
 
-            curs.execute("INSERT INTO urls (name) VALUES (%s)", [get_request_form[:elem]])
+            curs.execute(
+                "INSERT INTO urls (name) VALUES (%s)",
+                [get_request_form[:elem]]
+            )
             flash('Страница успешно добавлена', category='success')
             conn.commit()
 
@@ -87,7 +103,10 @@ def get_urls(id):
             curs.execute("SELECT * FROM urls WHERE id = (%s)", [id])
             row = curs.fetchmany(size=1)
 
-            curs.execute("SELECT * FROM url_checks WHERE url_id = (%s) ORDER BY id DESC", [id])
+            curs.execute(
+                "SELECT * FROM url_checks WHERE url_id = (%s) ORDER BY id DESC",
+                [id]
+            )
             url_id_row = curs.fetchall()
             # id == row
 
@@ -110,13 +129,19 @@ def get_urls(id):
                 curs.execute('SELECT id FROM urls ORDER BY id DESC;', [id])
                 row = curs.fetchmany(size=1)
                 conn.close()
-                
+
                 for elem in row:
                     return redirect(elem.id)
 
             # curs.execute("INSERT INTO url_checks (url_id) VALUES (%s);", [id])
-            curs.execute("INSERT INTO url_checks (url_id, status_code) VALUES (%s, %s);", [id, status_code])
-            curs.execute("SELECT * FROM url_checks WHERE url_id = (%s) ORDER BY id DESC", [id])
+            curs.execute(
+                "INSERT INTO url_checks (url_id, status_code) VALUES (%s, %s);",
+                [id, status_code]
+            )
+            curs.execute(
+                "SELECT * FROM url_checks WHERE url_id = (%s) ORDER BY id DESC",
+                [id]
+            )
 
             url_id_row = curs.fetchall()
             conn.commit()
@@ -132,11 +157,16 @@ def urls():
     conn = psycopg2.connect(DATABASE_URL)
     if request.method == 'GET':
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-            curs.execute("SELECT DISTINCT ON (urls.id) urls.id, urls.name, url_checks.created_at, url_checks.status_code FROM urls FULL JOIN url_checks ON urls.id = url_checks.url_id ORDER BY urls.id DESC, created_at DESC;")
+            curs.execute(
+                "SELECT DISTINCT ON (urls.id) urls.id, urls.name, "
+                "url_checks.created_at, "
+                "url_checks.status_code FROM "
+                "urls FULL JOIN url_checks ON "
+                "urls.id = url_checks.url_id "
+                "ORDER BY urls.id DESC, created_at DESC;")
             rows = curs.fetchall()
             conn.close()
-            return render_template(
-            'urls.html', rows=rows)
+            return render_template('urls.html', rows=rows)
 
     return render_template('urls.html')
 
