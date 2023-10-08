@@ -101,7 +101,8 @@ def page_urls():
             return redirect(elem.id)
 
 
-def table_urls(id):
+@app.route('/urls/<int:id>', methods=['GET', 'POST'])
+def get_urls(id):
     conn = psycopg2.connect(DATABASE_URL)
 
     with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
@@ -113,14 +114,6 @@ def table_urls(id):
             [id]
         )
         url_id_row = curs.fetchall()
-        return row, url_id_row
-
-
-@app.route('/urls/<int:id>', methods=['GET', 'POST'])
-def get_urls(id):
-    conn = psycopg2.connect(DATABASE_URL)
-
-    row, url_id_row = table_urls(id)
 
     if request.method == 'GET':
         return render_template('show.html', row=row, url_id_row=url_id_row)
