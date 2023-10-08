@@ -45,27 +45,34 @@ def index():
     return render_template('index.html')
 
 
+def checking_indexes(get_request_form):
+    symbol = '/'
+    indexes = [i for i, slash in enumerate(get_request_form)
+               if slash == symbol]
+
+    if len(indexes) < 3:
+        elem = len(get_request_form)
+    if len(indexes) > 2:
+        elem = indexes[2]
+
+    with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
+        curs.execute(
+            "SELECT id FROM urls WHERE name = (%s);",
+            [get_request_form[:elem]]
+        )
+        already_exists_line = curs.fetchmany(size=1)
+        return already_exists_line, elem
+
+
 @app.route('/urls/', methods=['POST'])
 def page_urls():
     conn = psycopg2.connect(DATABASE_URL)
     if request.method == 'POST':
         get_request_form = request.form.get('url')
 
-        symbol = '/'
-        indexes = [i for i, slash in enumerate(get_request_form)
-                   if slash == symbol]
-
-        if len(indexes) < 3:
-            elem = len(get_request_form)
-        if len(indexes) > 2:
-            elem = indexes[2]
-
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-            curs.execute(
-                "SELECT id FROM urls WHERE name = (%s);",
-                [get_request_form[:elem]]
-            )
-            already_exists_line = curs.fetchmany(size=1)
+            already_exists_line, elem = checking_indexes(get_request_form)
+
             for item in already_exists_line:
                 flash('Страница уже существует', category='exists')
                 return redirect(item.id)
