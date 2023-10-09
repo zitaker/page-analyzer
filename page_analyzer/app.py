@@ -101,10 +101,7 @@ def page_urls():
             return redirect(elem.id)
 
 
-@app.route('/urls/<int:id>', methods=['GET', 'POST'])
-def get_urls(id):
-    conn = psycopg2.connect(DATABASE_URL)
-
+def table_urls(conn, id):
     with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
         curs.execute("SELECT * FROM urls WHERE id = (%s)", [id])
         row = curs.fetchmany(size=1)
@@ -114,10 +111,18 @@ def get_urls(id):
             [id]
         )
         url_id_row = curs.fetchall()
+    return row, url_id_row
+
+
+@app.route('/urls/<int:id>', methods=['GET', 'POST'])
+def get_urls(id):
+    conn = psycopg2.connect(DATABASE_URL)
 
     if request.method == 'GET':
+        row, url_id_row = table_urls(conn, id)
         return render_template('show.html', row=row, url_id_row=url_id_row)
     if request.method == 'POST':
+        row, url_id_row = table_urls(conn, id)
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
             curs.execute("SELECT name FROM urls WHERE id = (%s)", [id])
             row_name = curs.fetchmany(size=1)
@@ -135,8 +140,8 @@ def get_urls(id):
                 row = curs.fetchmany(size=1)
                 conn.close()
 
-                for elem in row:
-                    return redirect(elem.id)
+                for obj in row:
+                    return redirect(obj.id)
 
             # curs.execute("INSERT INTO url_checks (url_id) VALUES (%s);", [id])
             curs.execute(
