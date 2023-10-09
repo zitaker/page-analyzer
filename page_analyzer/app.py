@@ -45,7 +45,7 @@ def index():
     return render_template('index.html')
 
 
-def checking_indexes(get_request_form):
+def checking_indexes(curs, get_request_form):
     symbol = '/'
     indexes = [i for i, slash in enumerate(get_request_form)
                if slash == symbol]
@@ -55,13 +55,12 @@ def checking_indexes(get_request_form):
     if len(indexes) > 2:
         elem = indexes[2]
 
-    with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-        curs.execute(
-            "SELECT id FROM urls WHERE name = (%s);",
-            [get_request_form[:elem]]
-        )
-        already_exists_line = curs.fetchmany(size=1)
-        return already_exists_line, elem
+    curs.execute(
+        "SELECT id FROM urls WHERE name = (%s);",
+        [get_request_form[:elem]]
+    )
+    already_exists_line = curs.fetchmany(size=1)
+    return already_exists_line, elem
 
 
 @app.route('/urls/', methods=['POST'])
@@ -71,7 +70,7 @@ def page_urls():
         get_request_form = request.form.get('url')
 
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-            already_exists_line, elem = checking_indexes(get_request_form)
+            already_exists_line, elem = checking_indexes(curs, get_request_form)
 
             for item in already_exists_line:
                 flash('Страница уже существует', category='exists')
@@ -130,7 +129,8 @@ def get_urls(id):
                 url = elem.name
 
             try:
-                # нашел адрес https://www.gismeteo.ru, если указать его то не работает
+                # нашел адрес https://www.gismeteo.ru,
+                # если указать его то не работает
                 response = requests.get(url)
                 status_code = response.status_code
             except:
