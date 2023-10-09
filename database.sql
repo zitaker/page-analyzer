@@ -11,7 +11,7 @@ CREATE TABLE urls (
 CREATE TABLE url_checks (
     id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     url_id bigint REFERENCES urls (id),
-    status_code numeric,
+    status_code text,
     h1 text,
     title text,
     description text,

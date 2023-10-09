@@ -181,12 +181,6 @@ def urls():
     return render_template('urls.html')
 
 
-@app.route('/process_data', methods=['POST'])
-def button():
-    if request.method == 'POST':
-        return 'index'
-
-
 @app.errorhandler(404)
 def page_not_fount(error):
     return render_template('page_404.html', title='Страница не найдена')
