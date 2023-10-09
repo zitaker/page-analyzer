@@ -124,8 +124,9 @@ def parse(url):
 
     h1 = h1_tag.text.strip() if h1_tag else ''
     title = title_tag.text.strip() if title_tag else ''
-    return h1, title
-
+    description = description_tag['content'].strip() \
+        if description_tag else ''
+    return h1, title, description
 
 @app.route('/urls/<int:id>', methods=['GET', 'POST'])
 def get_urls(id):
@@ -143,8 +144,6 @@ def get_urls(id):
                 url = elem.name
 
             try:
-                # нашел адрес https://www.gismeteo.ru,
-                # если указать его то не работает
                 response = requests.get(url)
                 status_code = response.status_code
             except:
@@ -157,11 +156,11 @@ def get_urls(id):
                 for obj in row:
                     return redirect(obj.id)
 
-            h1, title = parse(url)
-            # curs.execute("INSERT INTO url_checks (url_id) VALUES (%s);", [id])
+            h1, title, description = parse(url)
+
             curs.execute(
-                "INSERT INTO url_checks (url_id, status_code, h1, title) VALUES (%s, %s, %s, %s);",
-                [id, status_code, h1, title]
+                "INSERT INTO url_checks (url_id, status_code, h1, title, description) VALUES (%s, %s, %s, %s, %s);",
+                [id, status_code, h1, title, description]
             )
             curs.execute(
                 "SELECT * FROM url_checks WHERE url_id = (%s) ORDER BY id DESC",
