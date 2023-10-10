@@ -106,6 +106,23 @@ def parse(url):
     return h1, title, description
 
 
+def exclusion_conditions(url):
+    with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
+        try:
+            response = requests.get(url)
+            status_code = response.status_code
+            return status_code
+        except:
+            flash('Произошла ошибка при проверке', category='error')
+
+            curs.execute('SELECT id FROM urls ORDER BY id DESC;', [id])
+            row = curs.fetchmany(size=1)
+            conn.close()
+
+            for obj in row:
+                return redirect(obj.id)
+
+
 @app.route('/urls/<int:id>', methods=['GET', 'POST'])
 def get_urls(id):
     conn = psycopg2.connect(DATABASE_URL)
@@ -121,18 +138,7 @@ def get_urls(id):
             for elem in row_name:
                 url = elem.name
 
-            try:
-                response = requests.get(url)
-                status_code = response.status_code
-            except:
-                flash('Произошла ошибка при проверке', category='error')
-
-                curs.execute('SELECT id FROM urls ORDER BY id DESC;', [id])
-                row = curs.fetchmany(size=1)
-                conn.close()
-
-                for obj in row:
-                    return redirect(obj.id)
+            status_code = exclusion_conditions(url)
 
             h1, title, description = parse(url)
 
@@ -150,7 +156,7 @@ def get_urls(id):
             url_id_row = curs.fetchall()
             conn.commit()
             flash('Страница успешно проверена', category='success')
-        conn.close()
+            conn.close()
 
         data_post = render_template('show.html', row=row, url_id_row=url_id_row)
         return data_post
