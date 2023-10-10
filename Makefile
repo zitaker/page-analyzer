@@ -17,5 +17,3 @@ loading:
 
 
 #	poetry run flake8 page_analyzer
-#	poetry run pytest -vv
-

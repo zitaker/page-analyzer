@@ -15,7 +15,7 @@ DATABASE_URL = os.getenv('DATABASE_URL')
 conn = psycopg2.connect(DATABASE_URL)
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'dergegkp20sdJUOIe3309f267jrthKfe42hrs'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
 
 @app.route('/')
