@@ -17,13 +17,15 @@ jobs:
         run: |
           pip install poetry
 
-#      - name: install poetry
-#        run: |
-#          pip install poetry
-#
-#      - name: poetry build
-#        run: |
-#          make build
+      - name: install poetry
+        run: |
+          make poetry
+
+      - name: poetry build
+        run: |
+          make build
+
+        
 #
 #      - name: force-reinstall
 #        run: |
