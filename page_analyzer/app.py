@@ -12,7 +12,6 @@ from bs4 import BeautifulSoup
 
 
 DATABASE_URL = os.getenv('DATABASE_URL')
-conn = psycopg2.connect(DATABASE_URL)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
@@ -107,6 +106,7 @@ def parse(url):
 
 
 def exclusion_conditions(url):
+    conn = psycopg2.connect(DATABASE_URL)
     with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
         try:
             response = requests.get(url)
