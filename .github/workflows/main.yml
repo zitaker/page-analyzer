@@ -21,9 +21,14 @@ jobs:
         run: |
           poetry install
 
-      - name: poetry build
+      - name: flake8-install
         run: |
-          make build
+          make flake8-install
+
+      - name: flake8-run
+        run: |
+          poetry run flake8 page_analyzer
+
 
         
 #
@@ -31,10 +36,10 @@ jobs:
 #        run: |
 #          make reinstall
 #
-#      - name: flake8-install
-#        run: |
-#          make flake8-install
-#
-#      - name: flake8-run
-#        run: |
-#          make flake8-run
+     # - name: flake8-install
+     #   run: |
+     #     make flake8-install
+
+     # - name: flake8-run
+     #   run: |
+     #     make flake8-run
