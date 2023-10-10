@@ -17,9 +17,9 @@ jobs:
         run: |
           pip install poetry
 
-      - name: install poetry
-        run: |
-          poetry install
+      # - name: install poetry
+      #   run: |
+      #     poetry install
 
       - name: flake8-install
         run: |
@@ -30,16 +30,4 @@ jobs:
           poetry run flake8 page_analyzer
 
 
-        
-#
-#      - name: force-reinstall
-#        run: |
-#          make reinstall
-#
-     # - name: flake8-install
-     #   run: |
-     #     make flake8-install
-
-     # - name: flake8-run
-     #   run: |
-     #     make flake8-run
+      
