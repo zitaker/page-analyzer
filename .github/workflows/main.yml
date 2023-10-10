@@ -23,7 +23,7 @@ jobs:
 
       - name: flake8-install
         run: |
-          make flake8-install
+          pip install flake8
 
       - name: flake8-run
         run: |
