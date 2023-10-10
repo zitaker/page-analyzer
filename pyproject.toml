@@ -15,6 +15,7 @@ poetry = "1.6.1"
 psycopg2-binary = "2.9.7"
 pytest-cov = "^4.1.0"
 beautifulsoup4 = "4.12.2"
+Werkzeug = "2.2.2"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.2"
