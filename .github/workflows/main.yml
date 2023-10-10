@@ -19,7 +19,7 @@ jobs:
 
       - name: install poetry
         run: |
-          make poetry
+          poetry install
 
       - name: poetry build
         run: |
