@@ -105,32 +105,19 @@ def parse(url):
     return h1, title, description
 
 
-def exclusion_conditions(url):
-    conn = psycopg2.connect(DATABASE_URL)
-    with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-        try:
-            response = requests.get(url)
-            status_code = response.status_code
-            return status_code
-        except:
-            flash('Произошла ошибка при проверке', category='error')
-
-            curs.execute('SELECT id FROM urls ORDER BY id DESC;', [id])
-            row = curs.fetchmany(size=1)
-            conn.close()
-
-            for obj in row:
-                return redirect(obj.id)
-
-
-@app.route('/urls/<int:id>', methods=['GET', 'POST'])
+@app.route('/urls/<int:id>', methods=['GET'])
 def get_urls(id):
-    conn = psycopg2.connect(DATABASE_URL)
-
     if request.method == 'GET':
+        conn = psycopg2.connect(DATABASE_URL)
         row, url_id_row = table_urls(conn, id)
-        return render_template('show.html', row=row, url_id_row=url_id_row)
+        conn.close()
+    return render_template('show.html', row=row, url_id_row=url_id_row)
+
+
+@app.route('/urls/<int:id>', methods=['POST'])
+def get_urls1(id):
     if request.method == 'POST':
+        conn = psycopg2.connect(DATABASE_URL)
         row, url_id_row = table_urls(conn, id)
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
             curs.execute("SELECT name FROM urls WHERE id = (%s)", [id])
@@ -138,7 +125,18 @@ def get_urls(id):
             for elem in row_name:
                 url = elem.name
 
-            status_code = exclusion_conditions(url)
+            try:
+                response = requests.get(url)
+                status_code = response.status_code
+            except:
+                flash('Произошла ошибка при проверке', category='error')
+
+                curs.execute('SELECT id FROM urls ORDER BY id DESC;', [id])
+                row = curs.fetchmany(size=1)
+                conn.close()
+
+                for obj in row:
+                    return redirect(obj.id)
 
             h1, title, description = parse(url)
 
