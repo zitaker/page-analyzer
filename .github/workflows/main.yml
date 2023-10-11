@@ -25,9 +25,9 @@ jobs:
         run: |
           poetry run flake8 page_analyzer
 
-      - name: build
+      - name: DATABASE_URL
         run: |
-          ./build.sh
+          print(DATABASE_URL)
 
 
       
