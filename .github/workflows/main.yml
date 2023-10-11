@@ -25,9 +25,7 @@ jobs:
         run: |
           poetry run flake8 page_analyzer
 
-      - name: DATABASE_URL
-        run: |
-          print(DATABASE_URL)
+
 
 
       
