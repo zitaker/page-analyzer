@@ -114,6 +114,16 @@ def get_urls(id):
     return render_template('show.html', row=row, url_id_row=url_id_row)
 
 
+# def qwerty(url, id_url):
+#     try:
+#         response = requests.get(url)
+#         status_code = response.status_code
+#         return status_code
+#     except:
+#         flash('Произошла ошибка при проверке', category='error')
+#         return redirect(id_url)
+
+
 @app.route('/urls/<int:id>', methods=['POST'])
 def get_urls1(id):
     if request.method == 'POST':
@@ -124,14 +134,15 @@ def get_urls1(id):
             row_name = curs.fetchmany(size=1)
             for elem in row_name:
                 url = elem.name
+                id_url = elem.id
 
+            # status_code = qwerty(url, id_url)
             try:
                 response = requests.get(url)
                 status_code = response.status_code
             except:
                 flash('Произошла ошибка при проверке', category='error')
-                for obj in row_name:
-                    return redirect(obj.id)
+                return redirect(id_url)
 
             h1, title, description = parse(url)
 
