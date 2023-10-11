@@ -120,7 +120,7 @@ def get_urls1(id):
         conn = psycopg2.connect(DATABASE_URL)
         row, url_id_row = table_urls(conn, id)
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-            curs.execute("SELECT name FROM urls WHERE id = (%s)", [id])
+            curs.execute("SELECT * FROM urls WHERE id = (%s)", [id])
             row_name = curs.fetchmany(size=1)
             for elem in row_name:
                 url = elem.name
@@ -130,12 +130,7 @@ def get_urls1(id):
                 status_code = response.status_code
             except:
                 flash('Произошла ошибка при проверке', category='error')
-
-                curs.execute('SELECT id FROM urls ORDER BY id DESC;', [id])
-                row = curs.fetchmany(size=1)
-                conn.close()
-
-                for obj in row:
+                for obj in row_name:
                     return redirect(obj.id)
 
             h1, title, description = parse(url)
