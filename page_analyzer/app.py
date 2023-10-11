@@ -2,7 +2,8 @@ import psycopg2
 import os
 import requests
 
-import re
+# import re
+import logging
 
 from flask import Flask
 from flask import render_template
@@ -14,6 +15,15 @@ from bs4 import BeautifulSoup
 
 
 DATABASE_URL = os.getenv('DATABASE_URL')
+print(DATABASE_URL)
+
+
+logging.basicConfig(level=logging.INFO, filename="py_log.log",filemode="w")
+logging.debug("A DEBUG Message")
+logging.info("An INFO")
+logging.warning("A WARNING")
+logging.error("An ERROR")
+logging.critical("A message of CRITICAL severity")
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
@@ -55,13 +65,13 @@ def page_urls():
                 flash('Страница уже существует', category='exists')
                 return redirect(item.id)
 
-            condition = '[a-zA-Z0-9][.]([a-zA-Z]+){2}$'
-            condition_2 = '[a-zA-Z0-9][.]([a-zA-Z]+){2}[:]([0-9]+){2}$'
-            match = re.search(condition, get_request_form)
-            match_2 = re.search(condition_2, get_request_form)
-            if not (match or match_2):
-                flash('Некорректный URL', category='error')
-                return redirect('/')
+            # condition = '[a-zA-Z0-9][.]([a-zA-Z]+){2}$'
+            # condition_2 = '[a-zA-Z0-9][.]([a-zA-Z]+){2}[:]([0-9]+){2}$'
+            # match = re.search(condition, get_request_form)
+            # match_2 = re.search(condition_2, get_request_form)
+            # if not (match or match_2):
+            #     flash('Некорректный URL', category='error')
+            #     return redirect('/')
 
             if not (get_request_form.startswith('http://')
                     or get_request_form.startswith('https://')):
