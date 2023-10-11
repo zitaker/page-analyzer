@@ -18,7 +18,7 @@ DATABASE_URL = os.getenv('DATABASE_URL')
 print(DATABASE_URL)
 
 
-logging.basicConfig(level=logging.INFO, filename="py_log.log",filemode="w")
+logging.basicConfig(level=logging.INFO, filename="py_log.log", filemode="w")
 logging.debug("A DEBUG Message")
 logging.info("An INFO")
 logging.warning("A WARNING")
