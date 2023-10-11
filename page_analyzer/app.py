@@ -44,7 +44,7 @@ def checking_indexes(curs, get_request_form):
 def page_urls():
     conn = psycopg2.connect(DATABASE_URL)
     if request.method == 'POST':
-        get_request_form = request.form.get('url')
+        get_request_form = request.form.get('url').lower()
 
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
             already_exists_line, elem = checking_indexes(curs, get_request_form)
