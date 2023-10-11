@@ -2,5 +2,3 @@ INFO:root:An INFO
 WARNING:root:A WARNING
 ERROR:root:An ERROR
 CRITICAL:root:A message of CRITICAL severity
-WARNING:werkzeug: * Debugger is active!
-INFO:werkzeug: * Debugger PIN: 125-237-703
