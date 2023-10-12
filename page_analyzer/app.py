@@ -3,7 +3,7 @@ import os
 import requests
 
 # import re
-import logging
+# import logging
 
 from flask import Flask
 from flask import render_template
@@ -15,15 +15,15 @@ from bs4 import BeautifulSoup
 
 
 DATABASE_URL = os.getenv('DATABASE_URL')
-print(DATABASE_URL)
-
-
-logging.basicConfig(level=logging.INFO, filename="py_log.log", filemode="w")
-logging.debug("A DEBUG Message")
-logging.info("An INFO")
-logging.warning("A WARNING")
-logging.error("An ERROR")
-logging.critical("A message of CRITICAL severity")
+# print(DATABASE_URL)
+#
+#
+# logging.basicConfig(level=logging.INFO, filename="py_log.log", filemode="w")
+# logging.debug("A DEBUG Message")
+# logging.info("An INFO")
+# logging.warning("A WARNING")
+# logging.error("An ERROR")
+# logging.critical("A message of CRITICAL severity")
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
