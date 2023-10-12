@@ -31,14 +31,16 @@ from dotenv import load_dotenv
 # logging.critical("A message of CRITICAL severity")
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+# app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY', 'test_secret_key')
+# app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'test_secret_key')
 load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
 
-@app.route('/login', methods=['GET'])
-def login():
-    if request.method == 'GET':
-        return DATABASE_URL
+# @app.route('/login', methods=['GET'])
+# def login():
+#     if request.method == 'GET':
+#         return DATABASE_URL
 
 # @app.route('/login', methods=['POST'])
 # def login1():
