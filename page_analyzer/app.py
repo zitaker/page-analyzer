@@ -2,9 +2,6 @@ import psycopg2
 import os
 import requests
 
-# import re
-# import logging
-
 from flask import Flask
 from flask import render_template
 from flask import request
@@ -15,55 +12,11 @@ from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
 
-
-# print('***************************************************')
-# print(DATABASE_URL)
-# print('***************************************************')
-# print(f"DATABASE URL {DATABASE_URL}")
-# print('***************************************************')
-
-
-# logging.basicConfig(level=logging.INFO, filename="py_log.log", filemode="w")
-# logging.debug("A DEBUG Message")
-# logging.info("An INFO")
-# logging.warning("A WARNING")
-# logging.error("An ERROR")
-# logging.critical("A message of CRITICAL severity")
-
 app = Flask(__name__)
-# app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
-# SECRET_KEY = os.getenv('SECRET_KEY', 'test_secret_key')
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'test_secret_key')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
 
-# @app.route('/login', methods=['GET'])
-# def login():
-#     if request.method == 'GET':
-#         return DATABASE_URL
-
-# @app.route('/login', methods=['POST'])
-# def login1():
-#     if request.method == 'POST':
-#         return load_dotenv()
-
-        # logs = logging.getLogger(__name__)
-        # logs.setLevel(logging.INFO)
-        # stream_handler = StreamHandler()
-        # formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
-        # stream_handler.setFormatter(formatter)
-        # logs.addHandler(stream_handler)
-        # streams = stream_handler.stream
-        # return "Log Content: " + streams.read()
-
-        # user = (request.form['username'])
-        # if user.check_password(request.form['password']):
-        #     (user)
-        #     app.logger.info('%s logged in successfully', user.name)
-        #     return redirect('/')
-        # else:
-        #     app.logger.info('%s failed to log in', user.username)
-        #     return redirect(401)
 
 @app.route('/')
 def index():
@@ -101,14 +54,6 @@ def page_urls():
             for item in already_exists_line:
                 flash('Страница уже существует', category='exists')
                 return redirect(item.id)
-
-            # condition = '[a-zA-Z0-9][.]([a-zA-Z]+){2}$'
-            # condition_2 = '[a-zA-Z0-9][.]([a-zA-Z]+){2}[:]([0-9]+){2}$'
-            # match = re.search(condition, get_request_form)
-            # match_2 = re.search(condition_2, get_request_form)
-            # if not (match or match_2):
-            #     flash('Некорректный URL', category='error')
-            #     return redirect('/')
 
             if not (get_request_form.startswith('http://')
                     or get_request_form.startswith('https://')):
