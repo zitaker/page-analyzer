@@ -24,16 +24,4 @@ jobs:
       - name: flake8-run
         run: |
           poetry run flake8 page_analyzer
-
-      - name: source
-        run: |
-          source env/bin/activate
-
-      - name: -U
-        run: |
-          pip install -U pip
-
-
-
-
-      
+  
