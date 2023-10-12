@@ -20,14 +20,14 @@ print(DATABASE_URL)
 print('***************************************************')
 print(f"DATABASE URL {DATABASE_URL}")
 print('***************************************************')
-#
-#
-# logging.basicConfig(level=logging.INFO, filename="py_log.log", filemode="w")
-# logging.debug("A DEBUG Message")
-# logging.info("An INFO")
-# logging.warning("A WARNING")
-# logging.error("An ERROR")
-# logging.critical("A message of CRITICAL severity")
+
+
+logging.basicConfig(level=logging.INFO, filename="py_log.log", filemode="w")
+logging.debug("A DEBUG Message")
+logging.info("An INFO")
+logging.warning("A WARNING")
+logging.error("An ERROR")
+logging.critical("A message of CRITICAL severity")
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
@@ -79,6 +79,19 @@ def checking_indexes(curs, get_request_form):
 @app.route('/urls/', methods=['POST'])
 def page_urls():
     conn = psycopg2.connect(DATABASE_URL)
+
+    print('***************************************************')
+    print(DATABASE_URL)
+    print('***************************************************')
+    print(f"DATABASE URL {DATABASE_URL}")
+    print('***************************************************')
+
+    logging.basicConfig(level=logging.INFO, filename="py_log.log", filemode="w")
+    logging.debug("A DEBUG Message")
+    logging.info("An INFO")
+    logging.warning("A WARNING")
+    logging.error("An ERROR")
+    logging.critical("A message of CRITICAL severity")
 
     if request.method == 'POST':
         get_request_form = request.form.get('url').lower()
