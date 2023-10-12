@@ -56,6 +56,7 @@ def checking_indexes(curs, get_request_form):
 @app.route('/urls/', methods=['POST'])
 def page_urls():
     conn = psycopg2.connect(DATABASE_URL)
+    print(f"DATABASE URL {DATABASE_URL}")
     if request.method == 'POST':
         get_request_form = request.form.get('url').lower()
 
