@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY' or 'dergegkp20sdJUOIe3309f267jrthKfe42hrs')
 load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
 
