@@ -3,7 +3,7 @@ import os
 import requests
 
 # import re
-# import logging
+import logging
 
 from flask import Flask
 from flask import render_template
@@ -56,7 +56,14 @@ def checking_indexes(curs, get_request_form):
 @app.route('/urls/', methods=['POST'])
 def page_urls():
     conn = psycopg2.connect(DATABASE_URL)
-    print(f"DATABASE URL {DATABASE_URL}")
+
+    logging.basicConfig(level=logging.INFO, filename="py_log.log", filemode="w")
+    logging.debug("A DEBUG Message")
+    logging.info("An INFO")
+    logging.warning("A WARNING")
+    logging.error("An ERROR")
+    logging.critical("A message of CRITICAL severity")
+
     if request.method == 'POST':
         get_request_form = request.form.get('url').lower()
 
