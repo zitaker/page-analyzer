@@ -13,7 +13,10 @@ from dotenv import load_dotenv
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY' or 'dergegkp20sdJUOIe3309f267jrthKfe42hrs')
+# app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+# у меня секретный ключ убран в .env, но если я не пропишу секретный ключ,
+# то тесты hexlet грузяться бесконечно
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'test_secret_key')
 load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
 
