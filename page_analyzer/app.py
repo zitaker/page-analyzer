@@ -15,7 +15,8 @@ from bs4 import BeautifulSoup
 
 
 DATABASE_URL = os.getenv('DATABASE_URL')
-# print(DATABASE_URL)
+print(DATABASE_URL)
+print(f"DATABASE URL {DATABASE_URL}")
 #
 #
 # logging.basicConfig(level=logging.INFO, filename="py_log.log", filemode="w")
