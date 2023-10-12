@@ -4,7 +4,7 @@ install:
 	poetry install
 
 build:
-	./build.sh
+	chmod +x ./build.sh
 
 dev:
 	poetry run flask --app page_analyzer:app run
