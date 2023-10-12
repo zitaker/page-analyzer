@@ -13,6 +13,10 @@ from flask import redirect
 from flask import flash
 from bs4 import BeautifulSoup
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 DATABASE_URL = os.getenv('DATABASE_URL')
 print('***************************************************')
@@ -34,15 +38,15 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
 # @app.route('/login', methods=['POST'])
 # def login():
-#     if request.method == 'POST':
-#         logs = logging.getLogger(__name__)
-#         logs.setLevel(logging.INFO)
-#         stream_handler = StreamHandler()
-#         formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
-#         stream_handler.setFormatter(formatter)
-#         logs.addHandler(stream_handler)
-#         streams = stream_handler.stream
-#         return "Log Content: " + streams.read()
+
+        # logs = logging.getLogger(__name__)
+        # logs.setLevel(logging.INFO)
+        # stream_handler = StreamHandler()
+        # formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+        # stream_handler.setFormatter(formatter)
+        # logs.addHandler(stream_handler)
+        # streams = stream_handler.stream
+        # return "Log Content: " + streams.read()
 
         # user = (request.form['username'])
         # if user.check_password(request.form['password']):
@@ -79,19 +83,6 @@ def checking_indexes(curs, get_request_form):
 @app.route('/urls/', methods=['POST'])
 def page_urls():
     conn = psycopg2.connect(DATABASE_URL)
-
-    print('***************************************************')
-    print(DATABASE_URL)
-    print('***************************************************')
-    print(f"DATABASE URL {DATABASE_URL}")
-    print('***************************************************')
-
-    logging.basicConfig(level=logging.INFO, filename="py_log.log", filemode="w")
-    logging.debug("A DEBUG Message")
-    logging.info("An INFO")
-    logging.warning("A WARNING")
-    logging.error("An ERROR")
-    logging.critical("A message of CRITICAL severity")
 
     if request.method == 'POST':
         get_request_form = request.form.get('url').lower()
