@@ -3,7 +3,7 @@ import os
 import requests
 
 # import re
-import logging
+# import logging
 
 from flask import Flask
 from flask import render_template
@@ -12,18 +12,15 @@ from psycopg2.extras import NamedTupleCursor
 from flask import redirect
 from flask import flash
 from bs4 import BeautifulSoup
-
 from dotenv import load_dotenv
 
-load_dotenv()
 
 
-DATABASE_URL = os.getenv('DATABASE_URL')
-print('***************************************************')
-print(DATABASE_URL)
-print('***************************************************')
-print(f"DATABASE URL {DATABASE_URL}")
-print('***************************************************')
+# print('***************************************************')
+# print(DATABASE_URL)
+# print('***************************************************')
+# print(f"DATABASE URL {DATABASE_URL}")
+# print('***************************************************')
 
 
 # logging.basicConfig(level=logging.INFO, filename="py_log.log", filemode="w")
@@ -35,6 +32,8 @@ print('***************************************************')
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+load_dotenv()
+DATABASE_URL = os.getenv('DATABASE_URL')
 
 @app.route('/login', methods=['GET'])
 def login():
