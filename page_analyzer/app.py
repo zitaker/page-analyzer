@@ -26,18 +26,25 @@ print(f"DATABASE URL {DATABASE_URL}")
 print('***************************************************')
 
 
-logging.basicConfig(level=logging.INFO, filename="py_log.log", filemode="w")
-logging.debug("A DEBUG Message")
-logging.info("An INFO")
-logging.warning("A WARNING")
-logging.error("An ERROR")
-logging.critical("A message of CRITICAL severity")
+# logging.basicConfig(level=logging.INFO, filename="py_log.log", filemode="w")
+# logging.debug("A DEBUG Message")
+# logging.info("An INFO")
+# logging.warning("A WARNING")
+# logging.error("An ERROR")
+# logging.critical("A message of CRITICAL severity")
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
+@app.route('/login', methods=['GET'])
+def login():
+    if request.method == 'GET':
+        return DATABASE_URL
+
 # @app.route('/login', methods=['POST'])
-# def login():
+# def login1():
+#     if request.method == 'POST':
+#         return load_dotenv()
 
         # logs = logging.getLogger(__name__)
         # logs.setLevel(logging.INFO)
