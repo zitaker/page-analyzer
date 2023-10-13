@@ -10,14 +10,7 @@ from flask import redirect
 from flask import flash
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
-from dotenv import dotenv_values
 
-
-config = {
-    **dotenv_values(".env.shared"),  # load shared development variables
-    **dotenv_values(".env.secret"),  # load sensitive variables
-    **os.environ,  # override loaded values with environment variables
-}
 
 app = Flask(__name__)
 # app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
