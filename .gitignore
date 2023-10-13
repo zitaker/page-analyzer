@@ -6,4 +6,3 @@ dist/
 coverage.xml
 .pytest_cache/
 .env
-build.sh
