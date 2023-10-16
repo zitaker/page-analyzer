@@ -26,7 +26,6 @@ def index():
     return render_template('index.html')
 
 
-
 def checking_indexes(curs, get_request_form):
     symbol = '/'
     indexes = [i for i, slash in enumerate(get_request_form)
