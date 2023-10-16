@@ -10,13 +10,13 @@
 The Page Analyzer is a full — fledged application based on the Flask platform, using PostgreSQL. The principle of building the MVC architecture is taken: working with routing, query handlers and templating, interacting with the database. Deployment takes place on render.com .  
 
 ### Opportunities:
-1. Output of messages when performing checks:
-   * Page added successfully.
-   * The page already exists.
-   * Invalid URL.
-   * The URL contains more than 255 characters.
-   * An error occurred during verification.
-   * The page has been successfully verified.
+Output of messages when performing checks:
+1. Page added successfully.
+2. The page already exists.
+3. Invalid URL.
+4. The URL contains more than 255 characters.
+5. An error occurred during verification.
+6. The page has been successfully verified.
 
 
 ![Screenshot from 2023-10-16 19-39-32](https://github.com/zitaker/python-project-83/assets/92075508/37411b12-5ab7-4904-b837-2f640104adaa)
