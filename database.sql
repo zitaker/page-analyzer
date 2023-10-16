@@ -26,7 +26,5 @@ CREATE TABLE url_checks (
 --INSERT INTO url_checks (h1) VALUES ('qwerty');
 --INSERT INTO url_checks (url_id) VALUES (2);
 
-DELETE FROM urls;
-DELETE FROM url_checks;
 --SELECT * FROM urls;
 --SELECT * FROM url_checks;
