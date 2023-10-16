@@ -15,6 +15,8 @@ The Page Analyzer is a full — fledged application based on the Flask platform,
    * The page already exists.
    * Invalid URL.
    * The URL contains more than 255 characters.
+   * An error occurred during verification.
+   * The page has been successfully verified.
 
 
 ![Screenshot from 2023-10-16 19-39-32](https://github.com/zitaker/python-project-83/assets/92075508/37411b12-5ab7-4904-b837-2f640104adaa)
