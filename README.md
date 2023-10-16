@@ -10,6 +10,10 @@
 The Page Analyzer is a full — fledged application based on the Flask platform, using PostgreSQL. The principle of building the MVC architecture is taken: working with routing, query handlers and templating, interacting with the database. Deployment takes place on render.com .  
 
 ### Opportunities
+1. Entering a url and saving it in the urls table.
+2. If you make a check, the data is stored in the url_checks table and connected by a foreign key by id to the urls table.
+3. Output of data from two tables.
+
 Output of messages when performing checks:
 1. Page added successfully.
 2. The page already exists.
