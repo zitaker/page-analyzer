@@ -6,4 +6,6 @@
 
 [Demo](https://page-analyzer-of-the-georgia.onrender.com/)  
 
+<h3>Page Analyser is a page that analyzes certain pages for SEO suitability</h3>
+
 
