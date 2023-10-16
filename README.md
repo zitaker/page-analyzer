@@ -7,6 +7,7 @@
 [Demo](https://page-analyzer-of-the-georgia.onrender.com/)  
 
 ### A page analyzer is an application that analyzes certain pages for their SEO suitability.  
-##### The Page Analyzer is a full—fledged application based on the Flask platform.
+##### The Page Analyzer is a full—fledged application based on the Flask platform.  
+hoiuh
 
 
