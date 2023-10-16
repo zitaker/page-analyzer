@@ -7,7 +7,14 @@
 [Demo](https://page-analyzer-of-the-georgia.onrender.com/)  
 
 #### A page analyzer is an application that analyzes certain pages for their SEO suitability.  
-The Page Analyzer is a full — fledged application based on the Flask platform, using PostgreSQL. The principle of building the MVC architecture is taken: working with routing, query handlers and templating, interacting with the database. Deployment takes place on render.com .
+The Page Analyzer is a full — fledged application based on the Flask platform, using PostgreSQL. The principle of building the MVC architecture is taken: working with routing, query handlers and templating, interacting with the database. Deployment takes place on render.com .  
+
+### Opportunities:
+1. output messages:
+   * Page added successfully.
+   * The page already exists.
+   * Invalid URL.
+   * The URL contains more than 255 characters.
 
 
 ![Screenshot from 2023-10-16 19-39-32](https://github.com/zitaker/python-project-83/assets/92075508/37411b12-5ab7-4904-b837-2f640104adaa)
