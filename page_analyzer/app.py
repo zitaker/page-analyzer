@@ -21,14 +21,6 @@ load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
 
 
-conn = psycopg2.connect(DATABASE_URL)
-with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-    curs.execute('DELETE FROM urls;')
-    curs.execute('DELETE FROM url_checks;')
-    conn.commit()
-    conn.close()
-
-
 @app.route('/')
 def index():
     return render_template('index.html')
