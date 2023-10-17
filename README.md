@@ -27,3 +27,20 @@ The Page Analyzer is a full — fledged application based on the Flask platform,
 ![Screenshot from 2023-10-16 19-38-07](https://github.com/zitaker/python-project-83/assets/92075508/21888cc6-d94f-42c4-b15f-3def148f27fa)
 
 ![Screenshot from 2023-10-16 19-38-46](https://github.com/zitaker/python-project-83/assets/92075508/6f7f8cc2-0899-4ec6-a3c8-1fd2c2f6eb48)
+
+#### Minimum requirements:  
+1. python.
+2. pip.
+3. poetry.
+4. flask.
+5. gunicorn.
+6. python-dotenv.
+7. psycopg2-binary.
+8. pytest-cov.
+9. beautifulsoup4.
+10. Werkzeug.
+
+#### Install:
+1. Download the project.
+2. Go to the root directory of the project.
+3. Log in to the virtual environment poetry ```poetry shell```
