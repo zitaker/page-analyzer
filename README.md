@@ -45,5 +45,6 @@ The Page Analyzer is a full — fledged application based on the Flask platform,
 1. Download the project.
 2. Go to the root directory of the project.
 3. Log in to the virtual environment poetry by the command ```poetry shell```
-4. Install the required packages with the command ```make loading```
+4. Install the required packages with the command ```make install```
 5. Run the command to create tables ```make build```
+6. Launch the app ```make loading```
