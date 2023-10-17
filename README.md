@@ -29,18 +29,21 @@ The Page Analyzer is a full — fledged application based on the Flask platform,
 ![Screenshot from 2023-10-16 19-38-46](https://github.com/zitaker/python-project-83/assets/92075508/6f7f8cc2-0899-4ec6-a3c8-1fd2c2f6eb48)
 
 #### Minimum requirements:  
-1. python.
-2. pip.
-3. poetry.
-4. flask.
-5. gunicorn.
-6. python-dotenv.
-7. psycopg2-binary.
-8. pytest-cov.
-9. beautifulsoup4.
+1. Python.
+2. Pip.
+3. Poetry.
+4. Flask.
+5. Gunicorn.
+6. Python-dotenv.
+7. Psycopg2-binary.
+8. Pytest-cov.
+9. Beautifulsoup4.
 10. Werkzeug.
+11. The database. I use is postgresql.
 
 #### Install:
 1. Download the project.
 2. Go to the root directory of the project.
-3. Log in to the virtual environment poetry ```poetry shell```
+3. Log in to the virtual environment poetry by the command ```poetry shell```
+4. Install the required packages with the command ```make loading```
+5. Run the command to create tables ```make build```
